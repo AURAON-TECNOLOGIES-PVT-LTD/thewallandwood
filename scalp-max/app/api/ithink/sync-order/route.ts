@@ -25,15 +25,9 @@ export async function POST(req: Request) {
     }
 
     // Prepare iThink Logistics payload
-    const isTestCheckout = 
-      order.customer_name.toLowerCase().includes('test') || 
-      order.customer_email.toLowerCase().includes('test') || 
-      order.customer_phone === '9121757052' || 
-      order.customer_name.toLowerCase().includes('dummy');
-
-    const finalTotal = isTestCheckout ? 749 : order.total;
-    const finalPaymentMode = isTestCheckout ? 'Prepaid' : (order.status === "paid" ? "Prepaid" : "COD");
-    const finalCodAmount = finalPaymentMode === 'Prepaid' ? 0 : finalTotal;
+    const finalTotal = order.total;
+    const finalPaymentMode = "Prepaid";
+    const finalCodAmount = 0;
 
     const INDIAN_STATES = [
       'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -85,7 +79,7 @@ export async function POST(req: Request) {
                 product_name: "SCALP MAX® 12-Day Scalp Therapy System",
                 product_sku: "SM-1",
                 product_quantity: order.order_items?.[0]?.quantity || 1,
-                product_price: isTestCheckout ? 749 : (order.order_items?.[0]?.price || order.total),
+                product_price: order.order_items?.[0]?.price || order.total,
                 product_tax_rate: 0,
                 product_hsn_code: "0000",
                 product_discount: 0

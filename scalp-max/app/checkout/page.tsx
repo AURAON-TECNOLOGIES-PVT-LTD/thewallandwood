@@ -17,7 +17,7 @@ interface FormData {
   state: string;
   pincode: string;
   country: string;
-  paymentMethod: 'razorpay' | 'cod' | '';
+  paymentMethod: 'razorpay' | '';
 }
 
 const INDIAN_STATES = [
@@ -147,131 +147,91 @@ export default function CheckoutPage() {
       paymentMethod: form.paymentMethod,
     };
 
-    if (form.paymentMethod === 'cod') {
-      const order = await saveOrder(orderData);
+    // Razorpay online payment
+    try {
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: grandTotal }),
+      });
 
-      if (!order) {
-        alert('Something went wrong saving your order. Please try again.');
-        setIsProcessing(false);
-        return;
-      }
+      const { orderId, error: apiError } = await res.json();
+      if (apiError || !orderId) throw new Error(apiError || 'No order ID returned');
 
-      // Sync with iThink Logistics in the background
-      try {
-        fetch('/api/ithink/sync-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderId: order.id }),
-        });
-      } catch (err) {
-        console.error('iThink Logistics sync failed:', err);
-      }
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: grandTotal * 100,
+        currency: 'INR',
+        name: 'SCALP MAX',
+        description: itemName + ' - ' + itemSub,
+        order_id: orderId,
+        prefill: {
+          name: `${form.firstName} ${form.lastName}`,
+          email: form.email,
+          contact: form.phone,
+        },
+        handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string }) => {
+          const order = await saveOrder({
+            ...orderData,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpayOrderId: response.razorpay_order_id,
+          });
 
-      const orderDetails = {
-        orderNumber: `SM-${order.id.slice(-8).toUpperCase()}`,
-        ...form,
-        itemName,
-        itemSub,
-        quantity: cartQty,
-        total: grandTotal,
-        paymentMethod: 'COD',
-        estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-          .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-        placedAt: new Date().toISOString(),
+          if (!order) {
+            alert('Payment received but order save failed. Please contact support.');
+            return;
+          }
+
+          // Sync with iThink Logistics in the background
+          try {
+            fetch('/api/ithink/sync-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderId: order.id }),
+            });
+          } catch (err) {
+            console.error('iThink Logistics sync failed:', err);
+          }
+
+          const orderDetails = {
+            orderNumber: `SM-${order.id.slice(-8).toUpperCase()}`,
+            ...form,
+            itemName,
+            itemSub,
+            quantity: cartQty,
+            total: grandTotal,
+            paymentMethod: 'Razorpay',
+            estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+              .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+            placedAt: new Date().toISOString(),
+          };
+
+          localStorage.setItem('scalp_max_order', JSON.stringify(orderDetails));
+          localStorage.removeItem('scalp_max_cart');
+          window.dispatchEvent(new Event('cartUpdated'));
+          router.push('/order-success');
+        },
+        modal: { ondismiss: () => setIsProcessing(false) },
+        theme: { color: '#c9a84c' },
       };
 
-      localStorage.setItem('scalp_max_order', JSON.stringify(orderDetails));
-      localStorage.removeItem('scalp_max_cart');
-      window.dispatchEvent(new Event('cartUpdated'));
-      router.push('/order-success');
-
-    } else {
-      // Razorpay online payment
-      try {
-        const res = await fetch('/api/create-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: grandTotal }),
-        });
-
-        const { orderId, error: apiError } = await res.json();
-        if (apiError || !orderId) throw new Error(apiError || 'No order ID returned');
-
-        const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-          amount: grandTotal * 100,
-          currency: 'INR',
-          name: 'SCALP MAX',
-          description: itemName + ' - ' + itemSub,
-          order_id: orderId,
-          prefill: {
-            name: `${form.firstName} ${form.lastName}`,
-            email: form.email,
-            contact: form.phone,
-          },
-          handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string }) => {
-            const order = await saveOrder({
-              ...orderData,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-            });
-
-            if (!order) {
-              alert('Payment received but order save failed. Please contact support.');
-              return;
-            }
-
-            // Sync with iThink Logistics in the background
-            try {
-              fetch('/api/ithink/sync-order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ orderId: order.id }),
-              });
-            } catch (err) {
-              console.error('iThink Logistics sync failed:', err);
-            }
-
-            const orderDetails = {
-              orderNumber: `SM-${order.id.slice(-8).toUpperCase()}`,
-              ...form,
-              itemName,
-              itemSub,
-              quantity: cartQty,
-              total: grandTotal,
-              paymentMethod: 'Razorpay',
-              estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
-                .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-              placedAt: new Date().toISOString(),
-            };
-
-            localStorage.setItem('scalp_max_order', JSON.stringify(orderDetails));
-            localStorage.removeItem('scalp_max_cart');
-            window.dispatchEvent(new Event('cartUpdated'));
-            router.push('/order-success');
-          },
-          modal: { ondismiss: () => setIsProcessing(false) },
-          theme: { color: '#c9a84c' },
-        };
-
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.onload = () => {
-          const rzp = new (window as unknown as { Razorpay: new (o: object) => { open: () => void } }).Razorpay(options);
-          rzp.open();
-          setIsProcessing(false);
-        };
-        script.onerror = () => {
-          alert('Failed to load payment gateway. Check your internet connection.');
-          setIsProcessing(false);
-        };
-        document.body.appendChild(script);
-
-      } catch (err) {
-        console.error('Razorpay error:', err);
-        alert('Payment failed. Please try again.');
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => {
+        const rzp = new (window as unknown as { Razorpay: new (o: object) => { open: () => void } }).Razorpay(options);
+        rzp.open();
         setIsProcessing(false);
-      }
+      };
+      script.onerror = () => {
+        alert('Failed to load payment gateway. Check your internet connection.');
+        setIsProcessing(false);
+      };
+      document.body.appendChild(script);
+
+    } catch (err) {
+      console.error('Razorpay error:', err);
+      alert('Payment failed. Please try again.');
+      setIsProcessing(false);
     }
   };
 
@@ -452,6 +412,64 @@ export default function CheckoutPage() {
                       Razorpay — Pay Online
                     </div>
                     <p className={styles.payOptionDesc}>UPI, Credit/Debit Card, Net Banking, Wallets</p>
+                    <div className={styles.brandIcons}>
+                      {/* Google Pay */}
+                      <div className={styles.brandIcon} title="Google Pay">
+                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
+                          <g transform="translate(4, 4)">
+                            <path d="M7.5 7.5c0-.4-.03-.8-.1-1.2H4v2.3h2c-.1.6-.4 1.1-.9 1.4v1.2H7c.9-.8 1.4-2.1 1.4-3.7z" fill="#4285F4"/>
+                            <path d="M4 11c1.2 0 2.2-.4 2.9-1.1L5.1 8.7c-.3.2-.7.3-1.1.3-1.1 0-2.1-.7-2.4-1.8H.4v1.2C1.2 10.1 2.5 11 4 11z" fill="#34A853"/>
+                            <path d="M1.6 7.2c-.1-.3-.1-.6-.1-.9s0-.6.1-.9V4.2H.4c-.3.6-.4 1.3-.4 2s.1 1.4.4 2l1.2-1z" fill="#FBBC05"/>
+                            <path d="M4 3.5c.7 0 1.3.2 1.8.6l1.3-1.3C6.2 2.1 5.2 1.5 4 1.5c-1.5 0-2.8.9-3.6 2.2l1.2 1c.3-1.1 1.3-1.8 2.4-1.8z" fill="#EA4335"/>
+                            <text x="9" y="9.5" fill="#5F6368" fontFamily="sans-serif" fontSize="6.5" fontWeight="bold">Pay</text>
+                          </g>
+                        </svg>
+                      </div>
+
+                      {/* PhonePe */}
+                      <div className={styles.brandIcon} title="PhonePe">
+                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="38" height="24" rx="4" fill="#5F259F"/>
+                          <path d="M10 6C10 4.9 10.9 4 12 4H26C27.1 4 28 4.9 28 6V18C28 19.1 27.1 20 26 20H12C10.9 20 10 19.1 10 18V6Z" fill="#FFFFFF"/>
+                          <path d="M15 7H21C22.7 7 24 8.3 24 10C24 11.7 22.7 13 21 13H17V17H15V7ZM17 9V11H21C21.6 9.8 21.6 9.2 21 9H17Z" fill="#5F259F"/>
+                          <circle cx="21" cy="15" r="1.5" fill="#5F259F"/>
+                        </svg>
+                      </div>
+
+                      {/* Paytm */}
+                      <div className={styles.brandIcon} title="Paytm">
+                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
+                          <g transform="translate(3, 5)">
+                            <text x="0" y="10" fill="#00BAF2" fontFamily="sans-serif" fontSize="9" fontWeight="900" letterSpacing="-0.5">pay</text>
+                            <text x="17" y="10" fill="#002970" fontFamily="sans-serif" fontSize="9" fontWeight="900" letterSpacing="-0.5">tm</text>
+                          </g>
+                        </svg>
+                      </div>
+
+                      {/* BHIM UPI */}
+                      <div className={styles.brandIcon} title="BHIM UPI">
+                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
+                          <g transform="translate(4, 5)">
+                            <text x="0" y="10" fill="#0D5F9B" fontFamily="sans-serif" fontSize="9" fontWeight="900" fontStyle="italic" letterSpacing="-0.5">UPI</text>
+                            <path d="M18 2L24 2L21 12L15 12Z" fill="#097939" opacity="0.8"/>
+                            <path d="M22 2L28 2L25 12L19 12Z" fill="#0D5F9B" opacity="0.8"/>
+                          </g>
+                        </svg>
+                      </div>
+
+                      {/* Cards */}
+                      <div className={styles.brandIcon} title="Cards (Visa / Mastercard)">
+                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
+                          <circle cx="15" cy="12" r="5" fill="#EB001B"/>
+                          <circle cx="21" cy="12" r="5" fill="#F79E1B" fillOpacity="0.8"/>
+                          <text x="2" y="11" fill="#1A1F71" fontFamily="sans-serif" fontSize="5" fontWeight="bold" fontStyle="italic">VISA</text>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                   <span className={styles.payCheck}>✓</span>
                 </div>
