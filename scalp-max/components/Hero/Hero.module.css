@@ -1,0 +1,479 @@
+/* Hero section — matches Lovable reference exactly */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 100px;
+  background: #ffffff;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 3rem 5rem;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Content */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Eyebrow Badge */
+.badge {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+/* Heading */
+.heading {
+  font-family: var(--font-body);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.titleHighlight {
+  color: #0d1b2a;
+}
+
+/* Underline Divider */
+.dividerLine {
+  width: 80px;
+  height: 2.5px;
+  background-color: #0d1b2a;
+  margin-bottom: 1.75rem;
+}
+
+/* Subheading */
+.subheading {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+
+.subheading strong {
+  color: #0d1b2a;
+  font-weight: 700;
+}
+
+/* Badge Highlights row */
+.badgeHighlights {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #4a5568;
+  margin-bottom: 2.5rem;
+}
+
+.badgeSep {
+  color: #cbd5e1;
+  font-weight: 300;
+}
+
+/* CTA Group */
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btnPrimary {
+  padding: 16px 40px;
+  background: #0d1b2a;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnPrimary:hover {
+  background: #1a2e40;
+  transform: translateY(-1px);
+}
+
+.btnSecondary {
+  padding: 15px 35px;
+  background: transparent;
+  color: #0d1b2a;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  border: 1.5px solid #0d1b2a;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSecondary:hover {
+  background: rgba(13, 27, 42, 0.04);
+}
+
+/* Image Wrap & Mockup Card */
+.imageWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardContainer {
+  position: relative;
+  background: #f7f7f7;
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 420px;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f3f5;
+}
+
+.productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.newLaunchBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #0d1b2a;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 8px 18px;
+  border-radius: 100px;
+  z-index: 10;
+}
+
+/* Smartphone Mockup */
+.phoneMockup {
+  position: relative;
+  width: 200px;
+  height: 380px;
+  background: #ffffff;
+  border: 6px solid #eef1f5;
+  border-radius: 36px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phoneIsland {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 14px;
+  background: #0d1b2a;
+  border-radius: 10px;
+  z-index: 5;
+}
+
+.phoneScreen {
+  flex: 1;
+  padding: 20px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.mockupContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid #f1f3f5;
+  border-radius: 20px;
+  padding: 16px 10px;
+}
+
+.mockupLabel {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #718096;
+  margin-bottom: 10px;
+}
+
+.mockupTitle {
+  font-family: var(--font-body);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1;
+}
+
+.mockupLine {
+  width: 36px;
+  height: 2px;
+  background-color: #12141a;
+  margin: 10px 0;
+}
+
+.mockupCategory {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #0d1b2a;
+  margin-bottom: 10px;
+}
+
+.mockupIngredients {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  color: #718096;
+  line-height: 1.5;
+}
+
+.mockupSpacer {
+  flex: 1;
+}
+
+.mockupVolume {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  color: #718096;
+  margin-bottom: 6px;
+}
+
+.mockupBrand {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  letter-spacing: -0.01em;
+}
+
+.mockupBrandDot {
+  color: #12141a;
+}
+
+/* Trust Bar */
+.trustBar {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px 1rem;
+  width: 100%;
+}
+
+.trustBarInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.trustItem {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.trustItemSep {
+  color: #d1d5db;
+  font-weight: 300;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    gap: 2.5rem;
+  }
+
+  .imageWrap {
+    order: -1;
+  }
+
+  .content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .dividerLine {
+    margin: 0 auto 1.5rem;
+  }
+
+  .badgeHighlights {
+    justify-content: center;
+  }
+
+  .imageWrap {
+    max-width: 100%;
+  }
+
+  .trustBarInner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    justify-content: center;
+  }
+
+  .trustItem {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ctaGroup {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardContainer {
+    max-width: 300px;
+    height: 400px;
+  }
+
+  .phoneMockup {
+    width: 160px;
+    height: 300px;
+  }
+}
+
+/* Desktop Carousel styles inside cardContainer */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+/* Arrow buttons */
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s, opacity 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  line-height: 1;
+}
+
+.arrowBtn:hover {
+  background: #ffffff;
+}
+
+.arrowLeft {
+  left: 12px;
+}
+
+.arrowRight {
+  right: 12px;
+}
+
+/* Carousel pagination dots */
+.dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.dotActive {
+  background: #0d1b2a;
+  transform: scale(1.25);
+}

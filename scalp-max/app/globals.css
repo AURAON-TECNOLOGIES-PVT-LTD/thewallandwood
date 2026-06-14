@@ -1,0 +1,496 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
+/* =========================================
+   SCALP MAX — Design System v2
+   Theme: Minimalistic White (Pilgrim-inspired)
+   Colors: Pure White | Near-Black | Teal | Amber
+   ========================================= */
+
+:root {
+  /* Core Palette — Light */
+  --white: #FFFFFF;
+  --off-white: #ffffff;
+  --light-grey: #ffffff;
+  --mid-grey: #E2E4E9;
+
+  /* Text */
+  --text-dark: #111111;
+  --text-mid: #444444;
+  --text-muted: #888888;
+  --text-light: #BBBBBB;
+
+  /* Teal Accent (clinical/trust) -> Monochromatic Black/Gray */
+  --teal: #12141a;
+  --teal-light: #f1f5f9;
+  --teal-dark: #1f2937;
+  --teal-muted: rgba(18, 20, 26, 0.05);
+  --teal-border: rgba(18, 20, 26, 0.12);
+
+  /* Amber / Gold CTA (Pilgrim-style buttons) -> Monochromatic Metallic Black */
+  --amber: #12141a;
+  --amber-dark: #000000;
+  --amber-light: #374151;
+  --amber-muted: rgba(18, 20, 26, 0.05);
+
+  /* Green Sage (secondary accent) -> Gray */
+  --sage: #64748b;
+  --sage-light: #f8fafc;
+
+  /* Semantic */
+  --bg: var(--white);
+  --bg-alt: var(--off-white);
+  --bg-section: var(--light-grey);
+  --surface: var(--white);
+  --border: var(--mid-grey);
+  --border-light: #EBEBEB;
+
+  --text-primary: var(--text-dark);
+  --text-secondary: var(--text-mid);
+
+  /* Typography */
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Spacing */
+  --section-pad: clamp(4rem, 8vw, 7rem);
+  --container: 1200px;
+  --container-sm: 820px;
+  --container-md: 1040px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Legacy aliases — kept so individual module CSS still resolves */
+  --black: var(--text-dark);
+  --gold: var(--amber);
+  --gold-light: var(--amber-light);
+  --gold-dark: var(--amber-dark);
+  --gold-muted: var(--amber-muted);
+  --gold-border: rgba(245, 166, 35, 0.22);
+  --cream: var(--text-dark);
+  --cream-2: var(--text-mid);
+  --cream-3: var(--text-mid);
+  --cream-muted: var(--text-mid);
+  --gray-1: var(--text-muted);
+  --gray-2: var(--text-mid);
+
+  --color-black: var(--text-dark);
+  --color-gold: var(--amber);
+  --color-gold-light: var(--amber-light);
+  --color-gold-dark: var(--amber-dark);
+  --color-gold-muted: var(--amber-muted);
+  --color-gold-border: rgba(245, 166, 35, 0.22);
+  --color-white: var(--white);
+  --color-cream: var(--text-dark);
+  --color-cream-2: var(--text-mid);
+  --color-cream-3: var(--text-mid);
+  --color-cream-muted: var(--text-mid);
+  --color-sage: var(--sage);
+  --color-sage-light: #9AB79D;
+  --color-sage-dark: #5B7B5E;
+  --color-sage-muted: var(--sage-light);
+  --color-bg: var(--white);
+  --color-bg-alt: var(--off-white);
+  --color-bg-secondary: var(--off-white);
+  --color-surface: var(--white);
+  --color-border: var(--mid-grey);
+  --color-border-gold: rgba(245, 166, 35, 0.22);
+  --color-text-primary: var(--text-dark);
+  --color-text-secondary: var(--text-mid);
+  --color-text-muted: var(--text-muted);
+}
+
+/* =========================================
+   Reset & Base
+   ========================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+a {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* =========================================
+   Layout Utilities
+   ========================================= */
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: var(--section-pad) 0;
+}
+
+/* =========================================
+   Typography Scale
+   ========================================= */
+
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--text-dark);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.heading {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-mid);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-mid);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* =========================================
+   Section Header Pattern
+   ========================================= */
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-header--center {
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+}
+
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--teal);
+  opacity: 0.5;
+}
+
+.section-eyebrow--left::after {
+  display: none;
+}
+
+.section-eyebrow--left::before {
+  display: none;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.section-title strong {
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.section-header--center .section-subtitle {
+  margin: 0 auto;
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  position: relative;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  padding: 14px 32px;
+  background: var(--amber);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(18, 20, 26, 0.15);
+}
+
+.btn-primary:hover {
+  background: var(--amber-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(18, 20, 26, 0.25);
+}
+
+.btn-outline {
+  padding: 13px 31px;
+  background: transparent;
+  color: var(--text-dark);
+  border: 1.5px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.btn-teal {
+  padding: 14px 32px;
+  background: var(--teal);
+  color: #fff;
+}
+
+.btn-teal:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  padding: 10px 22px;
+  font-size: 0.82rem;
+}
+
+/* =========================================
+   Cards
+   ========================================= */
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-color: var(--teal-border);
+}
+
+/* =========================================
+   Pill Badge
+   ========================================= */
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: var(--teal-muted);
+  border: 1px solid var(--teal-border);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+  letter-spacing: 0.06em;
+}
+
+.badge-sage {
+  background: var(--sage-light);
+  border: 1px solid rgba(106, 158, 122, 0.25);
+  color: #4A7E5A;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   Divider
+   ========================================= */
+
+.divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 0;
+}
+
+.divider-teal {
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  opacity: 0.4;
+}
+
+/* =========================================
+   Scroll Reveal
+   ========================================= */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+[data-reveal].visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================
+   Page Header (inner pages)
+   ========================================= */
+
+.page-banner {
+  padding: 7rem 0 3.5rem;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+
+/* =========================================
+   Grain overlay — remove dark grain
+   ========================================= */
+.grain-overlay {
+  display: none;
+}
+
+/* =========================================
+   Announcement bar
+   ========================================= */
+.announcement-bar {
+  background: var(--teal);
+  color: #fff;
+  text-align: center;
+  padding: 9px 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}

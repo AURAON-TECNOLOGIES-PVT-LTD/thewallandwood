@@ -1,0 +1,227 @@
+.section {
+  padding: 7rem 0;
+  background: var(--white);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* Image column */
+.imageCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  background: var(--white);
+}
+
+.boxImage {
+  object-fit: cover;
+}
+
+.imageCaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  justify-content: center;
+}
+
+.captionIcon {
+  font-size: 1rem;
+}
+
+/* Content column */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+}
+
+.labelLine {
+  flex: 0 0 20px;
+  height: 1.5px;
+  background: var(--teal);
+  opacity: 0.5;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.title em {
+  font-style: italic;
+  color: var(--teal);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* Bottle Grid */
+.bottleGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.bottle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  aspect-ratio: 0.55;
+  border-radius: 100px 100px 8px 8px;
+  border-width: 1px;
+  border-style: solid;
+  cursor: default;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bottle:hover {
+  transform: translateY(-4px);
+}
+
+.cleansingBottle {
+  background: linear-gradient(180deg, var(--teal-muted), rgba(43,168,168,0.03));
+  border-color: var(--teal-border);
+}
+
+.cleansingBottle:hover {
+  box-shadow: 0 8px 20px rgba(43,168,168,0.15);
+}
+
+.treatmentBottle {
+  background: linear-gradient(180deg, var(--amber-muted), rgba(18, 20, 26, 0.02));
+  border-color: var(--teal-border);
+}
+
+.treatmentBottle:hover {
+  box-shadow: 0 8px 20px rgba(245,166,35,0.15);
+}
+
+.bottlePhase {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cleansingBottle .bottlePhase {
+  color: var(--teal);
+}
+
+.treatmentBottle .bottlePhase {
+  color: var(--amber-dark);
+}
+
+.bottleType {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cleansingBottle .bottleType {
+  color: rgba(43,168,168,0.5);
+}
+
+.treatmentBottle .bottleType {
+  color: rgba(18, 20, 26, 0.4);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+
+.legendSwatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.cleansingSwach {
+  background: var(--teal);
+}
+
+.treatmentSwatch {
+  background: var(--amber);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .imageCol {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottleGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

@@ -1,0 +1,114 @@
+.section {
+  position: relative;
+  padding: 7rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* Header */
+.header {
+  text-align: left;
+  margin-bottom: 4rem;
+  max-width: 650px;
+}
+
+.sectionLabel {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Cards Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Card Style */
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 3.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.card:hover {
+  border-color: #0d1b2a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.phaseLabel {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 1rem;
+  letter-spacing: 0.08em;
+}
+
+/* Make T1-T6 label dark */
+.card:nth-child(2) .phaseLabel {
+  color: #0d1b2a;
+}
+
+.phaseTitle {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.phaseDesc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.65;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 2.5rem 2rem;
+  }
+
+  .section {
+    padding: 5rem 0;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+}

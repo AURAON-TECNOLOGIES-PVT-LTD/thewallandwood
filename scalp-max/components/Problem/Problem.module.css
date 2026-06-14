@@ -1,0 +1,193 @@
+/* Problem Section — matches Lovable reference exactly */
+.section {
+  position: relative;
+  padding: 6rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* Header */
+.header {
+  text-align: left;
+  margin-bottom: 3.5rem;
+  max-width: 700px;
+}
+
+.sectionLabel {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.titleItalic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: #4a5568;
+  line-height: 1.7;
+}
+
+/* Grid representing a single bordered card divided into 6 cells */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  background: #ffffff;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Individual card cell */
+.card {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-right: 1.5px solid #e5e7eb;
+  border-bottom: 1.5px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+/* Remove border-right for items in column 3 */
+.card:nth-child(3n) {
+  border-right: none;
+}
+
+/* Remove border-bottom for items in bottom row */
+.card:nth-child(n+4) {
+  border-bottom: none;
+}
+
+.card:hover {
+  background-color: #fafbfc;
+}
+
+/* Icon Wrap (light orange circle with orange X mark) */
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.xIcon {
+  width: 14px;
+  height: 14px;
+  color: #12141a;
+}
+
+.cardTitle {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: #64748b;
+  line-height: 1.55;
+}
+
+/* Bottom Hook */
+.hook {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.hookText {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: #64748b;
+}
+
+.hookText strong {
+  color: #0d1b2a;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: 16px;
+  }
+
+  .card {
+    border-right: 1.5px solid #e5e7eb;
+    border-bottom: 1.5px solid #e5e7eb;
+  }
+
+  .card:nth-child(2n) {
+    border-right: none;
+  }
+
+  .card:nth-child(n) {
+    border-bottom: 1.5px solid #e5e7eb;
+  }
+
+  .card:nth-child(n+5) {
+    border-bottom: none;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    border-radius: 12px;
+  }
+
+  .card {
+    border-right: none;
+    border-bottom: 1.5px solid #e5e7eb;
+    padding: 2rem 1.5rem;
+  }
+
+  .card:last-child {
+    border-bottom: none;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+}
