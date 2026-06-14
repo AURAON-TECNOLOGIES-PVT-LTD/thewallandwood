@@ -97,63 +97,16 @@ const PRODUCTS = [
         text: '9 Clinical Active Ingredients'
       }
     ]
-  },
-  {
-    id: 2,
-    name: 'SCALP MAX® Test Pack',
-    sub: '1-Day Trial / Testing Kit',
-    price: 1,
-    originalPrice: 99,
-    discountText: 'Save 99%',
-    badge: 'Testing Pack',
-    contents: [
-      {
-        icon: (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-            <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />
-          </svg>
-        ),
-        text: '1 Trial Bottle (Testing C1)'
-      },
-      {
-        icon: (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-            <path d="M9 12h6M9 16h6M9 8h4" />
-          </svg>
-        ),
-        text: 'Testing Instructions Sheet'
-      },
-      {
-        icon: (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
-          </svg>
-        ),
-        text: 'Standard Test Packaging'
-      },
-      {
-        icon: (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2v20M12 7c3-1 6 1 6 4s-3 4-6 4M12 11c-3-1-6 1-6 4s3 4 6 4" />
-          </svg>
-        ),
-        text: '1 Trial Active Ingredient'
-      }
-    ]
   }
 ];
 
 export default function BuySection() {
-  const [selectedProductId, setSelectedProductId] = useState(1);
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
-  const activeProduct = PRODUCTS.find((p) => p.id === selectedProductId) || PRODUCTS[0];
+  const activeProduct = PRODUCTS[0];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -266,23 +219,6 @@ export default function BuySection() {
           {/* Badge */}
           <div className={styles.cardBadge}>{activeProduct.badge}</div>
 
-          {/* Product Selector Tabs */}
-          <div className={styles.productSelectorTabs}>
-            <button
-              className={`${styles.selectorTab} ${selectedProductId === 1 ? styles.activeTab : ''}`}
-              onClick={() => { setSelectedProductId(1); setAddedToCart(false); }}
-              type="button"
-            >
-              12-Day System (₹749)
-            </button>
-            <button
-              className={`${styles.selectorTab} ${selectedProductId === 2 ? styles.activeTab : ''}`}
-              onClick={() => { setSelectedProductId(2); setAddedToCart(false); }}
-              type="button"
-            >
-              ₹1 Test Pack
-            </button>
-          </div>
 
           <div className={styles.productInfo}>
             <div className={styles.productHeader}>

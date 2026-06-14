@@ -87,7 +87,11 @@ const faqs = [
   },
   {
     q: 'Who manufactures SCALP MAX?',
-    a: 'SCALP MAX is manufactured by UTTAM PRINT PACK (Cosmetic Division), B-161, DDA Shed, B-Block, Okhla Industrial Area, Phase-I, New Delhi – 110020, Mfg. Lic. No.: 04/86/20/CM. It is marketed by SCALP MAX (Aurion Technologies & Software Solutions Pvt. Ltd.), Hyderabad, Telangana.',
+    a: 'SCALP MAX is manufactured by UTTAM PRINT PACK (Cosmetic Division), B-161, DDA Shed, B-Block, Okhla Industrial Area, Phase-I, New Delhi – 110020, Mfg. Lic. No.: 04/86/20/CM. It is marketed by SCALP MAX (Auraon Technologies & Software Solutions Pvt. Ltd.), Hyderabad, Telangana.',
+  },
+  {
+    q: 'Who owns SCALP MAX?',
+    a: 'SCALP MAX is owned by Auraon Technologies Private Limited.',
   },
   {
     q: 'How do I contact SCALP MAX customer support?',
@@ -189,7 +193,7 @@ export default function FAQ({ teaser = false }: { teaser?: boolean }) {
             data-reveal
           >
             <Link href="/faq" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--gold)', color: 'var(--black)', padding: '16px 36px', borderRadius: '2px', fontWeight: '600', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', transition: 'all 0.3s ease' }}>
-              <span>View All 22 FAQs</span>
+              <span>View All 23 FAQs</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>

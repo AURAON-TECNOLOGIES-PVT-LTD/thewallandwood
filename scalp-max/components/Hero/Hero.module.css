@@ -148,18 +148,19 @@
 
 .cardContainer {
   position: relative;
-  background: #f7f7f7;
+  background: transparent;
   border-radius: 24px;
   padding: 0;
   overflow: hidden;
   width: 100%;
   max-width: 420px;
-  height: 480px;
+  aspect-ratio: 3 / 2;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f1f3f5;
+  box-shadow: none;
+  border: none;
 }
 
 .productImg {
