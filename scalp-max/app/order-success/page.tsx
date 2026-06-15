@@ -87,7 +87,7 @@ export default function OrderSuccessPage() {
           </div>
           <h1 className={styles.successTitle}>Order Confirmed!</h1>
           <p className={styles.successSubtitle}>
-            Your {order.itemName || '12-Day Scalp Therapy System'} is on its way. Get ready to restore your scalp!
+            Your {order.itemName || '12-Day Scalp Therapy Shampoo'} is on its way. Get ready to restore your scalp!
           </p>
           <div className={styles.orderNum} aria-label={`Order number ${order.orderNumber}`}>
             Order #{order.orderNumber}

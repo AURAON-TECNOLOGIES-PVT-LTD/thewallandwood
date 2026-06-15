@@ -17,9 +17,14 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ orderId: order.id });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Razorpay order creation failed:', error);
     return NextResponse.json(
-      { error: 'Failed to create order' },
+      { 
+        error: 'Failed to create order', 
+        details: error?.message || error || 'Unknown error',
+        description: error?.description || error?.error?.description || null
+      },
       { status: 500 }
     );
   }

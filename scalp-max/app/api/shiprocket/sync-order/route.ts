@@ -24,10 +24,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
-    // Check configuration
-    const email = process.env.SHIPROCKET_API_EMAIL;
-    const password = process.env.SHIPROCKET_API_PASSWORD;
-    const channelId = process.env.SHIPROCKET_CHANNEL_ID || "";
+    // Check configuration and trim any accidental leading/trailing spaces
+    const email = process.env.SHIPROCKET_API_EMAIL?.trim();
+    const password = process.env.SHIPROCKET_API_PASSWORD?.trim();
+    const channelId = process.env.SHIPROCKET_CHANNEL_ID?.trim() || "";
 
     if (!email || !password) {
       console.error('Shiprocket credentials missing from environment.');
@@ -67,9 +67,25 @@ export async function POST(req: Request) {
     ];
     const stateName = INDIAN_STATES.find(s => order.address?.toLowerCase().includes(s.toLowerCase())) || "Delhi";
 
-    // Format order date: YYYY-MM-DD HH:MM
+    // Format order date in Indian Standard Time (Asia/Kolkata) to YYYY-MM-DD HH:MM
     const dateObj = new Date(order.created_at || Date.now());
-    const orderDateStr = dateObj.toISOString().slice(0, 16).replace('T', ' ');
+    const istDateStr = dateObj.toLocaleString('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour12: false,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    // Format returned is MM/DD/YYYY, HH:MM
+    const [datePart, timePart] = istDateStr.split(', ');
+    const [month, day, year] = datePart.split('/');
+    const orderDateStr = `${year}-${month}-${day} ${timePart}`;
+
+    // Dynamically determine payment method (Prepaid vs COD)
+    const isPrepaid = order.stripe_payment_id !== null || order.status === 'paid';
+    const paymentMethod = isPrepaid ? "Prepaid" : "COD";
 
     const payload = {
       order_id: `SM-${order.id.slice(-8).toUpperCase()}`,
@@ -79,7 +95,7 @@ export async function POST(req: Request) {
       comment: "ScalpMax Order",
       billing_customer_name: firstName,
       billing_last_name: lastName,
-      billing_address: order.address.substring(0, 100),
+      billing_address: (order.address || '').substring(0, 100),
       billing_address_2: "",
       billing_city: order.city || "New Delhi",
       billing_pincode: order.pincode,
@@ -96,7 +112,7 @@ export async function POST(req: Request) {
           selling_price: order.order_items?.[0]?.price || order.total,
         }
       ],
-      payment_method: "Prepaid",
+      payment_method: paymentMethod,
       shipping_charges: 0,
       giftwrap_charges: 0,
       transaction_charges: 0,

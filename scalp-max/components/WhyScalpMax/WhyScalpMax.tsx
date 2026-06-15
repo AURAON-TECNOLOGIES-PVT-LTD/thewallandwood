@@ -12,7 +12,7 @@ const others = [
 
 const scalpMax = [
   { label: '12-Day Program', desc: 'Structured, proven protocol' },
-  { label: 'Alternating Therapy System', desc: 'C & T phases work synergistically' },
+  { label: 'Alternating Therapy Shampoo', desc: 'C & T phases work synergistically' },
   { label: 'Professional Recovery Approach', desc: 'Dermatologist-inspired method' },
   { label: '9 Active Ingredients', desc: 'Multi-targeted formulation' },
 ];

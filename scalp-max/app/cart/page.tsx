@@ -67,7 +67,7 @@ export default function CartPage() {
   const itemPrice = cart?.price ?? 749;
   const itemOriginalPrice = cart?.originalPrice ?? 1299;
   const itemName = cart?.name ?? 'SCALP MAX KIT';
-  const itemSub = cart?.sub ?? '12-Day Scalp Therapy System';
+  const itemSub = cart?.sub ?? '12-Day Scalp Therapy Shampoo';
   const itemFeatures = cart?.features ?? [];
 
   const total = itemPrice * quantity;

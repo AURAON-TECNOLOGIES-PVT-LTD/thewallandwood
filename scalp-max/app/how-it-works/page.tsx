@@ -4,7 +4,7 @@ import BuySection from '@/components/BuySection/BuySection';
 import Footer from '@/components/Footer/Footer';
 
 export const metadata = {
-  title: "How It Works — SCALP MAX® 12-Day Alternating Therapy System",
+  title: "How It Works — SCALP MAX® 12-Day Alternating Therapy Shampoo",
   description: "Learn about the scientific 12-day alternating Cleanse & Treat protocol of SCALP MAX® and how it restores your scalp health.",
 };
 

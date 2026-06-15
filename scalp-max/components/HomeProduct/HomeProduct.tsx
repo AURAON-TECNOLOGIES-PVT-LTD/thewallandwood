@@ -41,7 +41,7 @@ export default function HomeProduct() {
     const cart = {
       id: 1,
       name: 'SCALP MAX KIT',
-      sub: '12-Day Scalp Therapy System',
+      sub: '12-Day Scalp Therapy Shampoo',
       quantity: 1,
       price: 749,
       originalPrice: 1299,
@@ -119,7 +119,7 @@ export default function HomeProduct() {
 
         {/* ── Product Info ── */}
         <h1 className={styles.title}>SCALP MAX KIT</h1>
-        <p className={styles.subtitle}>12-Day Scalp Therapy System</p>
+        <p className={styles.subtitle}>12-Day Scalp Therapy Shampoo</p>
         <p className={styles.desc}>(Cleaning Phase C1–C6 + Treatment Phase T1–T6)</p>
 
         {/* ── Price ── */}

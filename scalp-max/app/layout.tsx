@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SCALP MAX® — 12-Day Scalp Therapy System | Restore Your Scalp",
+  title: "SCALP MAX® — 12-Day Scalp Therapy Shampoo | Restore Your Scalp",
   description:
-    "The SCALP MAX® 12-Day Scalp Therapy System scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
+    "The SCALP MAX® 12-Day Scalp Therapy Shampoo scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
   keywords:
     "scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, scalp care, SCALP MAX",
   openGraph: {
-    title: "SCALP MAX® — 12-Day Scalp Therapy System",
+    title: "SCALP MAX® — 12-Day Scalp Therapy Shampoo",
     description:
-      "Restore Your Scalp. Revive Your Hair. Professional-grade 12-day alternating therapy system.",
+      "Restore Your Scalp. Revive Your Hair. Professional-grade 12-day alternating therapy shampoo.",
     type: "website",
     locale: "en_IN",
   },
