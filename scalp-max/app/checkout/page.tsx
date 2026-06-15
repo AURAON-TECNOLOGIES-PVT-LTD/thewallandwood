@@ -187,15 +187,21 @@ export default function CheckoutPage() {
             return;
           }
 
-          // Sync with Shiprocket in the background
+          // Sync with Shiprocket (await so we can log any errors)
           try {
-            fetch('/api/shiprocket/sync-order', {
+            const syncRes = await fetch('/api/shiprocket/sync-order', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ orderId: order.id }),
             });
+            const syncData = await syncRes.json();
+            if (!syncRes.ok) {
+              console.error('Shiprocket sync failed:', syncRes.status, JSON.stringify(syncData));
+            } else {
+              console.log('Shiprocket sync successful:', JSON.stringify(syncData));
+            }
           } catch (err) {
-            console.error('Shiprocket sync failed:', err);
+            console.error('Shiprocket sync error:', err);
           }
 
           const orderDetails = {
