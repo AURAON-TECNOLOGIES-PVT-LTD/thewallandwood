@@ -90,7 +90,7 @@ export async function POST(req: Request) {
     const payload = {
       order_id: `SM-${order.id.slice(-8).toUpperCase()}`,
       order_date: orderDateStr,
-      pickup_location: "Primary", // Can be overridden by the user
+      pickup_location: "Home",
       channel_id: channelId,
       comment: "ScalpMax Order",
       billing_customer_name: firstName,
