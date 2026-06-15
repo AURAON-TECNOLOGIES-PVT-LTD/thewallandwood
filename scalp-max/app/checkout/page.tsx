@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   const [cartTotal, setCartTotal] = useState(749);
   const [cartQty, setCartQty] = useState(1);
   const [itemName, setItemName] = useState('SCALP MAX®');
-  const [itemSub, setItemSub] = useState('12-Day Scalp Therapy System');
+  const [itemSub, setItemSub] = useState('12-Day Scalp Therapy Shampoo');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
@@ -60,7 +60,7 @@ export default function CheckoutPage() {
         price: 749,
         total: 749,
         name: 'SCALP MAX KIT',
-        sub: '12-Day Scalp Therapy System',
+        sub: '12-Day Scalp Therapy Shampoo',
         features: [
           '12 Therapy Bottles (C1–C6 + T1–T6)',
           'Day-by-Day Usage Guide',
@@ -77,7 +77,7 @@ export default function CheckoutPage() {
       setCartTotal(cart.total || 749);
       setCartQty(cart.quantity || 1);
       setItemName(cart.name || 'SCALP MAX KIT');
-      setItemSub(cart.sub || '12-Day Scalp Therapy System');
+      setItemSub(cart.sub || '12-Day Scalp Therapy Shampoo');
     }, 0);
   }, []);
 
@@ -114,7 +114,8 @@ export default function CheckoutPage() {
   };
 
   const shipping = 0;
-  const grandTotal = cartTotal + shipping;
+  // TESTING: Forced grandTotal to 1 Rupee for testing. Change back to cartTotal + shipping for production.
+  const grandTotal = 1;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,8 +156,12 @@ export default function CheckoutPage() {
         body: JSON.stringify({ amount: grandTotal }),
       });
 
-      const { orderId, error: apiError } = await res.json();
-      if (apiError || !orderId) throw new Error(apiError || 'No order ID returned');
+      const responseData = await res.json();
+      if (responseData.error || !responseData.orderId) {
+        const errMsg = responseData.description || responseData.details || responseData.error || 'No order ID returned';
+        throw new Error(errMsg);
+      }
+      const orderId = responseData.orderId;
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -182,15 +187,15 @@ export default function CheckoutPage() {
             return;
           }
 
-          // Sync with iThink Logistics in the background
+          // Sync with Shiprocket in the background
           try {
-            fetch('/api/ithink/sync-order', {
+            fetch('/api/shiprocket/sync-order', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ orderId: order.id }),
             });
           } catch (err) {
-            console.error('iThink Logistics sync failed:', err);
+            console.error('Shiprocket sync failed:', err);
           }
 
           const orderDetails = {
@@ -228,9 +233,10 @@ export default function CheckoutPage() {
       };
       document.body.appendChild(script);
 
-    } catch (err) {
+    } catch (err: unknown) {
+      const errorObj = err as { message?: string };
       console.error('Razorpay error:', err);
-      alert('Payment failed. Please try again.');
+      alert(`Payment failed: ${errorObj.message || 'Please try again.'}`);
       setIsProcessing(false);
     }
   };

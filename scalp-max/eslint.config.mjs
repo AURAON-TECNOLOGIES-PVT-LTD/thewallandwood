@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "test_ithink.js",
-    "test_ithink_staging.js",
     "test-uuid-like.js",
   ]),
 ]);
