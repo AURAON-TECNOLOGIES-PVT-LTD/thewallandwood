@@ -531,8 +531,8 @@ export default function CheckoutPage() {
                 </div>
                 {form.state === 'Telangana' && (
                   <div className={styles.summaryLine} style={{ color: '#2e7d32', fontSize: '0.82em' }}>
-                    <span>Telangana discount applied</span>
-                    <span>-₹50</span>
+                    <span>Discount applied</span>
+                    <span style={{ textDecoration: 'line-through' }}>₹50</span>
                   </div>
                 )}
                 <div className={styles.summaryDivider} />
