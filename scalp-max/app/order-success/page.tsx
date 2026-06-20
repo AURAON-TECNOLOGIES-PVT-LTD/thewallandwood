@@ -28,6 +28,7 @@ interface Order {
 export default function OrderSuccessPage() {
   const router = useRouter();
   const [order, setOrder] = useState<Order | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [showConfetti, setShowConfetti] = useState(false);
   const [confetti, setConfetti] = useState<Array<{ left: string; delay: string }>>([]);
 
@@ -39,15 +40,47 @@ export default function OrderSuccessPage() {
         left: `${Math.random() * 100}%`,
         delay: `${Math.random() * 2}s`,
       }));
-      setTimeout(() => {
-        setOrder(parsed);
-        setConfetti(items);
-        setTimeout(() => setShowConfetti(true), 300);
-      }, 0);
+      // Set order instantly — no delay
+      setOrder(parsed);
+      setConfetti(items);
+      setIsLoading(false);
+      // Slight delay only for confetti animation (cosmetic)
+      setTimeout(() => setShowConfetti(true), 150);
     } else {
       router.push('/');
     }
   }, [router]);
+
+  // Show a loading spinner during initial mount (brief SSR hydration)
+  if (isLoading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--off-white)',
+        gap: '1rem',
+      }}>
+        <div style={{
+          width: '48px',
+          height: '48px',
+          border: '3px solid var(--border-light)',
+          borderTop: '3px solid var(--teal, #2ba8a8)',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite',
+        }} />
+        <p style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.9rem',
+          color: 'var(--text-muted)',
+          letterSpacing: '0.04em',
+        }}>Confirming your order...</p>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
 
   if (!order) return null;
 

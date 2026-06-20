@@ -113,9 +113,9 @@ export default function CheckoutPage() {
     }
   };
 
-  const shipping = 0;
-  // TESTING: Forced grandTotal to 1 Rupee for testing. Change back to cartTotal + shipping for production.
-  const grandTotal = 1;
+  // ₹0 (FREE) for Telangana, ₹50 for every other state
+  const shipping = form.state === 'Telangana' ? 0 : form.state === '' ? 0 : 50;
+  const grandTotal = cartTotal + shipping;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -425,62 +425,70 @@ export default function CheckoutPage() {
                     </div>
                     <p className={styles.payOptionDesc}>UPI, Credit/Debit Card, Net Banking, Wallets</p>
                     <div className={styles.brandIcons}>
-                      {/* Google Pay */}
+
+                      {/* Google Pay — realistic G+Pay badge */}
                       <div className={styles.brandIcon} title="Google Pay">
-                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
-                          <g transform="translate(4, 4)">
-                            <path d="M7.5 7.5c0-.4-.03-.8-.1-1.2H4v2.3h2c-.1.6-.4 1.1-.9 1.4v1.2H7c.9-.8 1.4-2.1 1.4-3.7z" fill="#4285F4"/>
-                            <path d="M4 11c1.2 0 2.2-.4 2.9-1.1L5.1 8.7c-.3.2-.7.3-1.1.3-1.1 0-2.1-.7-2.4-1.8H.4v1.2C1.2 10.1 2.5 11 4 11z" fill="#34A853"/>
-                            <path d="M1.6 7.2c-.1-.3-.1-.6-.1-.9s0-.6.1-.9V4.2H.4c-.3.6-.4 1.3-.4 2s.1 1.4.4 2l1.2-1z" fill="#FBBC05"/>
-                            <path d="M4 3.5c.7 0 1.3.2 1.8.6l1.3-1.3C6.2 2.1 5.2 1.5 4 1.5c-1.5 0-2.8.9-3.6 2.2l1.2 1c.3-1.1 1.3-1.8 2.4-1.8z" fill="#EA4335"/>
-                            <text x="9" y="9.5" fill="#5F6368" fontFamily="sans-serif" fontSize="6.5" fontWeight="bold">Pay</text>
-                          </g>
+                        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="44" height="28" rx="5" fill="#FFFFFF" stroke="#DADCE0" strokeWidth="1"/>
+                          {/* G logo */}
+                          <path d="M13.6 14.18c0-.39-.035-.765-.1-1.125H9V15.1h2.6c-.112.6-.453 1.11-.965 1.45v1.205h1.562c.914-.84 1.442-2.08 1.442-3.575z" fill="#4285F4"/>
+                          <path d="M9 17.9c1.305 0 2.4-.432 3.2-1.17l-1.563-1.205c-.433.29-.987.462-1.637.462-1.26 0-2.327-.85-2.71-1.99H4.68v1.245C5.473 16.965 7.1 17.9 9 17.9z" fill="#34A853"/>
+                          <path d="M6.29 13.997a3.37 3.37 0 0 1 0-2.152V10.6H4.68a5.84 5.84 0 0 0 0 5.242l1.61-1.245z" fill="#FBBC05"/>
+                          <path d="M9 10.658c.71 0 1.347.244 1.848.724l1.385-1.385C11.395 9.168 10.3 8.7 9 8.7c-1.9 0-3.527.935-4.32 2.3L6.29 12.245C6.673 11.104 7.74 10.658 9 10.658z" fill="#EA4335"/>
+                          {/* Pay text */}
+                          <text x="16" y="17" fontFamily="'Roboto', 'Arial', sans-serif" fontSize="7.5" fontWeight="500" fill="#3C4043" letterSpacing="0.2">Pay</text>
                         </svg>
                       </div>
 
-                      {/* PhonePe */}
+                      {/* PhonePe — realistic purple badge with Ph logo */}
                       <div className={styles.brandIcon} title="PhonePe">
-                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="38" height="24" rx="4" fill="#5F259F"/>
-                          <path d="M10 6C10 4.9 10.9 4 12 4H26C27.1 4 28 4.9 28 6V18C28 19.1 27.1 20 26 20H12C10.9 20 10 19.1 10 18V6Z" fill="#FFFFFF"/>
-                          <path d="M15 7H21C22.7 7 24 8.3 24 10C24 11.7 22.7 13 21 13H17V17H15V7ZM17 9V11H21C21.6 9.8 21.6 9.2 21 9H17Z" fill="#5F259F"/>
-                          <circle cx="21" cy="15" r="1.5" fill="#5F259F"/>
+                        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="44" height="28" rx="5" fill="#5F259F"/>
+                          {/* White P symbol */}
+                          <path d="M8 7h6.5c2.2 0 3.8 1.5 3.8 3.5S16.7 14 14.5 14H11v5H8V7zm3 2v3h3.5c.8 0 1.3-.55 1.3-1.5S15.3 9 14.5 9H11z" fill="#FFFFFF"/>
+                          {/* "Pe" wordmark in white */}
+                          <text x="19.5" y="17" fontFamily="'Arial', sans-serif" fontSize="7" fontWeight="700" fill="#FFFFFF" letterSpacing="0.3">Pe</text>
+                          {/* Dot accent */}
+                          <circle cx="32" cy="12" r="1.8" fill="#FFD700"/>
                         </svg>
                       </div>
 
-                      {/* Paytm */}
+                      {/* Paytm — realistic white badge with brand-accurate colors */}
                       <div className={styles.brandIcon} title="Paytm">
-                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
-                          <g transform="translate(3, 5)">
-                            <text x="0" y="10" fill="#00BAF2" fontFamily="sans-serif" fontSize="9" fontWeight="900" letterSpacing="-0.5">pay</text>
-                            <text x="17" y="10" fill="#002970" fontFamily="sans-serif" fontSize="9" fontWeight="900" letterSpacing="-0.5">tm</text>
-                          </g>
+                        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="44" height="28" rx="5" fill="#FFFFFF" stroke="#E8E8E8" strokeWidth="1"/>
+                          {/* Blue "pay" */}
+                          <text x="5" y="17" fontFamily="'Arial', sans-serif" fontSize="8.5" fontWeight="900" fill="#00BAF2" letterSpacing="-0.3">pay</text>
+                          {/* Navy "tm" */}
+                          <text x="23" y="17" fontFamily="'Arial', sans-serif" fontSize="8.5" fontWeight="900" fill="#011F5B" letterSpacing="-0.3">tm</text>
                         </svg>
                       </div>
 
-                      {/* BHIM UPI */}
+                      {/* BHIM UPI — official logo style with arrows */}
                       <div className={styles.brandIcon} title="BHIM UPI">
-                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
-                          <g transform="translate(4, 5)">
-                            <text x="0" y="10" fill="#0D5F9B" fontFamily="sans-serif" fontSize="9" fontWeight="900" fontStyle="italic" letterSpacing="-0.5">UPI</text>
-                            <path d="M18 2L24 2L21 12L15 12Z" fill="#097939" opacity="0.8"/>
-                            <path d="M22 2L28 2L25 12L19 12Z" fill="#0D5F9B" opacity="0.8"/>
-                          </g>
+                        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="44" height="28" rx="5" fill="#FFFFFF" stroke="#E8E8E8" strokeWidth="1"/>
+                          {/* UPI arrows (official logo style) */}
+                          <polygon points="7,6 13,6 10,22 4,22" fill="#097939"/>
+                          <polygon points="12,6 18,6 15,22 9,22" fill="#ED1B23"/>
+                          {/* UPI text */}
+                          <text x="21" y="17" fontFamily="'Arial', sans-serif" fontSize="7.5" fontWeight="800" fill="#0D5F9B" fontStyle="italic" letterSpacing="0.2">UPI</text>
                         </svg>
                       </div>
 
-                      {/* Cards */}
-                      <div className={styles.brandIcon} title="Cards (Visa / Mastercard)">
-                        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect width="38" height="24" rx="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1"/>
-                          <circle cx="15" cy="12" r="5" fill="#EB001B"/>
-                          <circle cx="21" cy="12" r="5" fill="#F79E1B" fillOpacity="0.8"/>
-                          <text x="2" y="11" fill="#1A1F71" fontFamily="sans-serif" fontSize="5" fontWeight="bold" fontStyle="italic">VISA</text>
+                      {/* Visa + Mastercard */}
+                      <div className={styles.brandIcon} title="Visa / Mastercard">
+                        <svg width="44" height="28" viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="44" height="28" rx="5" fill="#FFFFFF" stroke="#E8E8E8" strokeWidth="1"/>
+                          {/* VISA italic wordmark */}
+                          <text x="3" y="12" fontFamily="'Arial', sans-serif" fontSize="7" fontWeight="900" fill="#1A1F71" fontStyle="italic" letterSpacing="0.5">VISA</text>
+                          {/* Mastercard overlapping circles */}
+                          <circle cx="24" cy="19" r="5" fill="#EB001B"/>
+                          <circle cx="30" cy="19" r="5" fill="#FF5F00"/>
+                          <path d="M27 15.76a5 5 0 0 1 0 6.48A5 5 0 0 1 27 15.76z" fill="#F79E1B"/>
                         </svg>
                       </div>
+
                     </div>
                   </div>
                   <span className={styles.payCheck}>✓</span>
@@ -511,8 +519,22 @@ export default function CheckoutPage() {
                 </div>
                 <div className={styles.summaryLine}>
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? <span className={styles.freeShip}>FREE</span> : `₹${shipping}`}</span>
+                  <span>
+                    {form.state === '' ? (
+                      <span style={{ color: '#888', fontSize: '0.85em' }}>Select state</span>
+                    ) : form.state === 'Telangana' ? (
+                      <span className={styles.freeShip}>FREE 🎉</span>
+                    ) : (
+                      `₹50`
+                    )}
+                  </span>
                 </div>
+                {form.state === 'Telangana' && (
+                  <div className={styles.summaryLine} style={{ color: '#2e7d32', fontSize: '0.82em' }}>
+                    <span>Telangana discount applied</span>
+                    <span>-₹50</span>
+                  </div>
+                )}
                 <div className={styles.summaryDivider} />
                 <div className={`${styles.summaryLine} ${styles.totalLine}`}>
                   <span>Total</span>
