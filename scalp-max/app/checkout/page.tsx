@@ -37,6 +37,9 @@ export default function CheckoutPage() {
   const [itemSub, setItemSub] = useState('12-Day Scalp Therapy Shampoo');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [pincodeStatus, setPincodeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [pincodeArea, setPincodeArea] = useState<string>('');
+  const [autoFilled, setAutoFilled] = useState(false);
 
   const [form, setForm] = useState<FormData>({
     firstName: '',
@@ -110,6 +113,48 @@ export default function CheckoutPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handlePincodeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    setForm((prev) => ({ ...prev, pincode: value, ...(autoFilled ? { city: '', state: '' } : {}) }));
+    if (errors.pincode) setErrors((prev) => ({ ...prev, pincode: undefined }));
+
+    if (value.length < 6) {
+      setPincodeStatus('idle');
+      setPincodeArea('');
+      if (autoFilled) {
+        setAutoFilled(false);
+        setForm((prev) => ({ ...prev, pincode: value, city: '', state: '' }));
+      }
+      return;
+    }
+
+    setPincodeStatus('loading');
+    try {
+      const res = await fetch(`https://api.postalpincode.in/pincode/${value}`);
+      const data = await res.json();
+      if (data[0]?.Status === 'Success' && data[0]?.PostOffice?.length > 0) {
+        const po = data[0].PostOffice[0];
+        const detectedState = po.State || '';
+        const detectedCity = po.District || po.Division || '';
+        const areas = [...new Set<string>(data[0].PostOffice.map((p: { Name: string }) => p.Name))];
+        const areaLabel = areas.slice(0, 3).join(', ') + (areas.length > 3 ? ` +${areas.length - 3} more` : '');
+        setForm((prev) => ({ ...prev, pincode: value, city: detectedCity, state: detectedState }));
+        setPincodeArea(areaLabel);
+        setPincodeStatus('success');
+        setAutoFilled(true);
+        setErrors((prev) => ({ ...prev, city: undefined, state: undefined, pincode: undefined }));
+      } else {
+        setPincodeStatus('error');
+        setPincodeArea('');
+        setAutoFilled(false);
+      }
+    } catch {
+      setPincodeStatus('error');
+      setPincodeArea('');
+      setAutoFilled(false);
     }
   };
 
@@ -359,23 +404,57 @@ export default function CheckoutPage() {
 
               <div className={styles.formRow3}>
                 <div className={styles.field}>
-                  <label className={styles.label} htmlFor="city">City *</label>
+                  <label className={styles.label} htmlFor="pincode">Pincode *</label>
+                  <div className={styles.pincodeWrap}>
+                    <input
+                      className={`${styles.input} ${errors.pincode ? styles.inputError : ''} ${pincodeStatus === 'success' ? styles.inputSuccess : ''}`}
+                      id="pincode" name="pincode" type="text" inputMode="numeric"
+                      placeholder="500001"
+                      value={form.pincode} onChange={handlePincodeChange}
+                      maxLength={6}
+                      autoComplete="postal-code"
+                    />
+                    {pincodeStatus === 'loading' && (
+                      <span className={styles.pincodeSpinner} aria-label="Looking up pincode" />
+                    )}
+                    {pincodeStatus === 'success' && (
+                      <span className={styles.pincodeCheck} aria-hidden="true">✓</span>
+                    )}
+                  </div>
+                  {errors.pincode && <span className={styles.error}>{errors.pincode}</span>}
+                  {pincodeStatus === 'success' && pincodeArea && (
+                    <span className={styles.pincodeHint}>📍 {pincodeArea}</span>
+                  )}
+                  {pincodeStatus === 'error' && (
+                    <span className={styles.pincodeError}>Invalid pincode — please check</span>
+                  )}
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="city">
+                    City *
+                    {autoFilled && <span className={styles.autoTag}>Auto-filled</span>}
+                  </label>
                   <input
-                    className={`${styles.input} ${errors.city ? styles.inputError : ''}`}
+                    className={`${styles.input} ${errors.city ? styles.inputError : ''} ${autoFilled ? styles.inputAutoFilled : ''}`}
                     id="city" name="city" type="text"
                     placeholder="Hyderabad"
                     value={form.city} onChange={handleChange}
                     autoComplete="address-level2"
+                    readOnly={autoFilled}
                   />
                   {errors.city && <span className={styles.error}>{errors.city}</span>}
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label} htmlFor="state">State *</label>
+                  <label className={styles.label} htmlFor="state">
+                    State *
+                    {autoFilled && <span className={styles.autoTag}>Auto-filled</span>}
+                  </label>
                   <select
-                    className={`${styles.select} ${errors.state ? styles.inputError : ''}`}
+                    className={`${styles.select} ${errors.state ? styles.inputError : ''} ${autoFilled ? styles.inputAutoFilled : ''}`}
                     id="state" name="state"
                     value={form.state} onChange={handleChange}
                     autoComplete="address-level1"
+                    disabled={autoFilled}
                   >
                     <option value="">Select State</option>
                     {INDIAN_STATES.map((s) => (
@@ -383,18 +462,6 @@ export default function CheckoutPage() {
                     ))}
                   </select>
                   {errors.state && <span className={styles.error}>{errors.state}</span>}
-                </div>
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="pincode">Pincode *</label>
-                  <input
-                    className={`${styles.input} ${errors.pincode ? styles.inputError : ''}`}
-                    id="pincode" name="pincode" type="text"
-                    placeholder="500001"
-                    value={form.pincode} onChange={handleChange}
-                    maxLength={6}
-                    autoComplete="postal-code"
-                  />
-                  {errors.pincode && <span className={styles.error}>{errors.pincode}</span>}
                 </div>
               </div>
 

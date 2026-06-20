@@ -566,3 +566,81 @@
   transform: translateY(-2px);
 }
 
+/* Pincode lookup */
+.pincodeWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pincodeWrap .input {
+  padding-right: 40px;
+}
+
+.pincodeSpinner {
+  position: absolute;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(13, 27, 42, 0.15);
+  border-top-color: #0d1b2a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.pincodeCheck {
+  position: absolute;
+  right: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2e7d32;
+  line-height: 1;
+}
+
+.inputSuccess {
+  border-color: #4caf50 !important;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12) !important;
+}
+
+.inputAutoFilled {
+  background: #f0fdf4 !important;
+  border-color: #a5d6a7 !important;
+  color: #1b5e20 !important;
+  cursor: default;
+}
+
+.pincodeHint {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: #2e7d32;
+  font-weight: 500;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pincodeError {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: #e05858;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.autoTag {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+  border-radius: 4px;
+  padding: 1px 5px;
+  vertical-align: middle;
+}
+
