@@ -51,6 +51,13 @@ export default function Header() {
 
   return (
     <>
+      {/* Announcement Bar */}
+      <div className={styles.announcementBar} id="announcement-bar">
+        <p className={styles.announcementText}>
+          Carefully packed. Securely delivered. Just ₹50 for shipping anywhere in India.
+        </p>
+      </div>
+
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} id="header">
         <div className={styles.inner}>
           {/* Left Column: Hamburger Menu Toggle */}
