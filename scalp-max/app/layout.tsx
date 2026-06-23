@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import VisitTracker from "@/components/VisitTracker/VisitTracker";
 
 export const metadata: Metadata = {
   title: "SCALP MAX® — 12-Day Scalp Therapy Shampoo | Restore Your Scalp",
@@ -31,6 +32,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <div className="grain-overlay" aria-hidden="true" />
+        <VisitTracker />
         {children}
       </body>
     </html>

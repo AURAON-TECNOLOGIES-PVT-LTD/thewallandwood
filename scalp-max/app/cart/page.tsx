@@ -125,7 +125,6 @@ export default function CartPage() {
                 </div>
 
                 <div className={styles.itemInfo}>
-                  <div className={styles.itemBadge}>Best Seller</div>
                   <h2 className={styles.itemName}>{itemName}</h2>
                   <p className={styles.itemSub}>{itemSub}</p>
                   <ul className={styles.itemFeatures}>

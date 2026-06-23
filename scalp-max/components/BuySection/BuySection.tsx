@@ -216,8 +216,6 @@ export default function BuySection() {
           data-reveal
           style={{ opacity: 0, transform: 'translateY(40px)', transition: 'all 0.8s ease 0.2s' }}
         >
-          {/* Badge */}
-          <div className={styles.cardBadge}>{activeProduct.badge}</div>
 
 
           <div className={styles.productInfo}>
