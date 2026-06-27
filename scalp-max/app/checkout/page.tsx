@@ -215,10 +215,18 @@ export default function CheckoutPage() {
         name: 'SCALP MAX',
         description: itemName + ' - ' + itemSub,
         order_id: orderId,
+        // webview_intent: true — CRITICAL for mobile UPI redirect fix.
+        // Forces the mobile browser frame to maintain a background anchor connection
+        // so when Google Pay / PhonePe closes after PIN entry, the browser tab is
+        // pulled forward and the handler callback fires correctly.
+        webview_intent: true,
         prefill: {
           name: `${form.firstName} ${form.lastName}`,
+          // email and contact are mandatory for Razorpay to send SMS & email receipts
           email: form.email,
-          contact: form.phone,
+          // E.164 format with +91 prefix ensures Razorpay notification engine can
+          // correctly match and deliver SMS confirmation to the customer
+          contact: `+91${form.phone}`,
         },
         handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string }) => {
           const order = await saveOrder({
@@ -230,23 +238,6 @@ export default function CheckoutPage() {
           if (!order) {
             alert('Payment received but order save failed. Please contact support.');
             return;
-          }
-
-          // Sync with Shiprocket (await so we can log any errors)
-          try {
-            const syncRes = await fetch('/api/shiprocket/sync-order', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ orderId: order.id }),
-            });
-            const syncData = await syncRes.json();
-            if (!syncRes.ok) {
-              console.error('Shiprocket sync failed:', syncRes.status, JSON.stringify(syncData));
-            } else {
-              console.log('Shiprocket sync successful:', JSON.stringify(syncData));
-            }
-          } catch (err) {
-            console.error('Shiprocket sync error:', err);
           }
 
           const orderDetails = {
@@ -265,7 +256,30 @@ export default function CheckoutPage() {
           localStorage.setItem('scalp_max_order', JSON.stringify(orderDetails));
           localStorage.removeItem('scalp_max_cart');
           window.dispatchEvent(new Event('cartUpdated'));
-          router.push('/order-success');
+
+          // Redirect immediately — don't wait for Shiprocket sync on mobile.
+          // Use window.location.href as a hard fallback for app-to-app redirect
+          // scenarios where Next.js router may not fire after returning from UPI app.
+          try {
+            router.push('/order-success');
+          } catch {
+            window.location.href = '/order-success';
+          }
+
+          // Fire-and-forget: Shiprocket sync runs in background after redirect
+          fetch('/api/shiprocket/sync-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId: order.id }),
+          })
+            .then((syncRes) => syncRes.json().then((syncData) => {
+              if (!syncRes.ok) {
+                console.error('Shiprocket sync failed:', syncRes.status, JSON.stringify(syncData));
+              } else {
+                console.log('Shiprocket sync successful:', JSON.stringify(syncData));
+              }
+            }))
+            .catch((err) => console.error('Shiprocket sync error:', err));
         },
         modal: { ondismiss: () => setIsProcessing(false) },
         theme: { color: '#c9a84c' },

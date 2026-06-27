@@ -26,6 +26,15 @@ interface DashboardData {
   byHour: Record<string, number>;
 }
 
+interface OrderStats {
+  totalOrders: number;
+  todayOrders: number;
+  weekOrders: number;
+  monthOrders: number;
+  totalRevenue: number;
+  todayRevenue: number;
+}
+
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
@@ -76,6 +85,7 @@ function downloadCSV(data: Visit[]) {
 export default function DashboardPage() {
   const router = useRouter();
   const [data, setData] = useState<DashboardData | null>(null);
+  const [orderStats, setOrderStats] = useState<OrderStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [activeTab, setActiveTab] = useState<'overview' | 'traffic' | 'visitors' | 'log'>('overview');
@@ -83,9 +93,14 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch('/api/track-visit');
-      const json = await res.json();
+      const [visitsRes, ordersRes] = await Promise.all([
+        fetch('/api/track-visit'),
+        fetch('/api/orders-stats'),
+      ]);
+      const json = await visitsRes.json();
+      const ordersJson = await ordersRes.json();
       setData(json);
+      setOrderStats(ordersJson);
       setLastRefresh(new Date());
     } catch { /* silent */ } finally {
       setLoading(false);
@@ -233,7 +248,8 @@ export default function DashboardPage() {
             {/* ── OVERVIEW TAB ── */}
             {activeTab === 'overview' && (
               <>
-                {/* Stat Cards */}
+                {/* Visit Stat Cards */}
+                <div className={styles.sectionLabel}>📊 Website Traffic</div>
                 <div className={styles.statsGrid}>
                   {[
                     { id: 'total', label: 'All Time', value: data?.total ?? 0, color: '#2BA8A8', bg: 'rgba(43,168,168,0.1)',
@@ -255,6 +271,36 @@ export default function DashboardPage() {
                         <span className={styles.statLabel}>{s.label}</span>
                         <span className={styles.statValue} style={{ color: s.color }}>
                           {s.value.toLocaleString('en-IN')}
+                        </span>
+                      </div>
+                      {s.pulse && <div className={styles.statPulse} />}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Order Stat Cards */}
+                <div className={styles.sectionLabel}>🛒 Orders</div>
+                <div className={styles.statsGrid}>
+                  {[
+                    { id: 'ord-total', label: 'Total Orders', value: orderStats?.totalOrders ?? 0, color: '#F59E0B', bg: 'rgba(245,158,11,0.1)', prefix: '',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="1.7"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>, pulse: true },
+                    { id: 'ord-today', label: "Today's Orders", value: orderStats?.todayOrders ?? 0, color: '#34D399', bg: 'rgba(52,211,153,0.1)', prefix: '',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="1.7"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> },
+                    { id: 'ord-week', label: 'This Week', value: orderStats?.weekOrders ?? 0, color: '#818CF8', bg: 'rgba(129,140,248,0.1)', prefix: '',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818CF8" strokeWidth="1.7"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg> },
+                    { id: 'ord-month', label: 'This Month', value: orderStats?.monthOrders ?? 0, color: '#60A5FA', bg: 'rgba(96,165,250,0.1)', prefix: '',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="1.7"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /><line x1="2" y1="20" x2="22" y2="20" /></svg> },
+                    { id: 'ord-revenue', label: 'Total Revenue', value: orderStats?.totalRevenue ?? 0, color: '#C9A84C', bg: 'rgba(201,168,76,0.1)', prefix: '₹',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.7"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg> },
+                    { id: 'ord-today-rev', label: "Today's Revenue", value: orderStats?.todayRevenue ?? 0, color: '#F472B6', bg: 'rgba(244,114,182,0.1)', prefix: '₹',
+                      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F472B6" strokeWidth="1.7"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg> },
+                  ].map((s) => (
+                    <div className={styles.statCard} key={s.id} id={`stat-${s.id}`}>
+                      <div className={styles.statIcon} style={{ background: s.bg }}>{s.icon}</div>
+                      <div className={styles.statBody}>
+                        <span className={styles.statLabel}>{s.label}</span>
+                        <span className={styles.statValue} style={{ color: s.color }}>
+                          {s.prefix}{s.value.toLocaleString('en-IN')}
                         </span>
                       </div>
                       {s.pulse && <div className={styles.statPulse} />}
