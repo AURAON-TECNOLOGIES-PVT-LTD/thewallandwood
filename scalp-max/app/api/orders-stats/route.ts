@@ -1,23 +1,40 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 
+// IST is UTC+5:30 = 330 minutes ahead
+const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+
+function toIST(date: Date): Date {
+  return new Date(date.getTime() + IST_OFFSET_MS);
+}
+
+function startOfDayIST(): Date {
+  const ist = toIST(new Date());
+  // Zero out hours in IST, then convert back to UTC for comparison
+  const istMidnight = new Date(Date.UTC(ist.getUTCFullYear(), ist.getUTCMonth(), ist.getUTCDate(), 0, 0, 0));
+  return new Date(istMidnight.getTime() - IST_OFFSET_MS);
+}
+
+function startOfWeekIST(): Date {
+  const ist = toIST(new Date());
+  const dayOfWeek = ist.getUTCDay(); // 0=Sun
+  const istWeekStart = new Date(Date.UTC(ist.getUTCFullYear(), ist.getUTCMonth(), ist.getUTCDate() - dayOfWeek, 0, 0, 0));
+  return new Date(istWeekStart.getTime() - IST_OFFSET_MS);
+}
+
+function startOfMonthIST(): Date {
+  const ist = toIST(new Date());
+  const istMonthStart = new Date(Date.UTC(ist.getUTCFullYear(), ist.getUTCMonth(), 1, 0, 0, 0));
+  return new Date(istMonthStart.getTime() - IST_OFFSET_MS);
+}
+
 export async function GET() {
   try {
-    const now = new Date();
-
-    const startOfToday = new Date(now);
-    startOfToday.setHours(0, 0, 0, 0);
-
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-    // Fetch all orders (limit 1000 — enough for a small store)
+    // Fetch only PAID orders — pending/failed orders are excluded from all stats
     const { data: orders, error } = await supabase
       .from('orders')
       .select('id, total, created_at, status')
+      .eq('status', 'paid')
       .order('created_at', { ascending: false })
       .limit(1000);
 
@@ -28,24 +45,29 @@ export async function GET() {
 
     const allOrders = orders ?? [];
 
+    // Time boundaries in IST-corrected UTC timestamps
+    const todayStart = startOfDayIST();
+    const weekStart = startOfWeekIST();
+    const monthStart = startOfMonthIST();
+
     const totalOrders = allOrders.length;
 
     const todayOrders = allOrders.filter(
-      (o) => new Date(o.created_at) >= startOfToday
+      (o) => new Date(o.created_at) >= todayStart
     ).length;
 
     const weekOrders = allOrders.filter(
-      (o) => new Date(o.created_at) >= startOfWeek
+      (o) => new Date(o.created_at) >= weekStart
     ).length;
 
     const monthOrders = allOrders.filter(
-      (o) => new Date(o.created_at) >= startOfMonth
+      (o) => new Date(o.created_at) >= monthStart
     ).length;
 
     const totalRevenue = allOrders.reduce((sum, o) => sum + (o.total ?? 0), 0);
 
     const todayRevenue = allOrders
-      .filter((o) => new Date(o.created_at) >= startOfToday)
+      .filter((o) => new Date(o.created_at) >= todayStart)
       .reduce((sum, o) => sum + (o.total ?? 0), 0);
 
     return NextResponse.json({
