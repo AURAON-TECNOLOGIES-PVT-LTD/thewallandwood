@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import styles from './dashboard.module.css';
 
 interface Visit {
@@ -150,11 +151,15 @@ export default function DashboardPage() {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <div className={styles.logo}>
-            <div className={styles.logoMark}>SM</div>
-            <div className={styles.logoInfo}>
-              <span className={styles.logoText}>SCALP MAX<sup>®</sup></span>
-              <span className={styles.logoBadge}>Analytics</span>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="SCALP MAX"
+              width={130}
+              height={44}
+              style={{ objectFit: 'contain', height: '44px', width: 'auto' }}
+              priority
+            />
+            <span className={styles.logoBadge}>Analytics</span>
           </div>
         </div>
 

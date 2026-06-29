@@ -786,7 +786,9 @@ export default function CheckoutPage() {
               <h3 className={styles.summaryTitle}>Order Summary</h3>
 
               <div className={styles.summaryProduct}>
-                <div className={styles.summaryProductImg} aria-hidden="true">SM</div>
+                <div className={styles.summaryProductImg} aria-hidden="true">
+                  <Image src="/logo.png" alt="SCALP MAX" width={60} height={60} style={{ objectFit: 'contain', width: '100%', height: '100%', padding: '6px' }} />
+                </div>
                 <div className={styles.summaryProductInfo}>
                   <p className={styles.summaryProductName}>{itemName}</p>
                   <p className={styles.summaryProductSub}>{itemSub} × {cartQty}</p>

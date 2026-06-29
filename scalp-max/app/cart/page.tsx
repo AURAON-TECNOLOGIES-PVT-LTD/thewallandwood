@@ -128,7 +128,7 @@ export default function CartPage() {
             <div className={styles.cartItems}>
               <div className={styles.cartItem} id="cart-item-scalp-max">
                 <div className={styles.itemImage} aria-hidden="true">
-                  <div className={styles.itemImageInner}>SM</div>
+                  <Image src="/logo.png" alt="SCALP MAX" width={80} height={80} style={{ objectFit: 'contain', width: '100%', height: '100%', padding: '8px' }} />
                 </div>
 
                 <div className={styles.itemInfo}>

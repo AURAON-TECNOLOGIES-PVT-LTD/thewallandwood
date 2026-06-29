@@ -245,7 +245,9 @@ function OrderSuccessContent() {
               Order Summary
             </h2>
             <div className={styles.orderProduct}>
-              <div className={styles.orderProductImg} aria-hidden="true">SM</div>
+              <div className={styles.orderProductImg} aria-hidden="true">
+                <Image src="/logo.png" alt="SCALP MAX" width={60} height={60} style={{ objectFit: 'contain', width: '100%', height: '100%', padding: '6px' }} />
+              </div>
               <div className={styles.orderProductInfo}>
                 <p className={styles.orderProductName}>{order.itemName || 'Cleansing Shampoo C1'}</p>
                 <p className={styles.orderProductSub}>{(order.itemSub || 'Gentle micellar cleanse for oil & buildup')} × {order.quantity}</p>
