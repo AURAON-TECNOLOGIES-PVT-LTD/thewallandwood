@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -11,8 +12,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className={styles.brand}>
             <div className={styles.logo}>
-              <span className={styles.logoText}>ScalpMax</span>
-              <span className={styles.logoDot}>.</span>
+              <Image
+                src="/logo.png"
+                alt="SCALP MAX"
+                width={110}
+                height={36}
+                style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+              />
             </div>
             <p className={styles.tagline}>
               Hair science, simplified. Honest formulas. Clinical results.

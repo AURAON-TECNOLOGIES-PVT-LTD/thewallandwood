@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './checkout.module.css';
 import { saveOrder } from '@/services/orderService';
 
@@ -40,6 +41,19 @@ export default function CheckoutPage() {
   const [pincodeStatus, setPincodeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [pincodeArea, setPincodeArea] = useState<string>('');
   const [autoFilled, setAutoFilled] = useState(false);
+
+  // Ref to hold pending order data for UPI app-switch recovery
+  const pendingOrderRef = useRef<{
+    orderData: Parameters<typeof saveOrder>[0];
+    razorpayOrderId: string;
+    itemName: string;
+    itemSub: string;
+    cartQty: number;
+    grandTotal: number;
+    form: FormData;
+  } | null>(null);
+  // Guard flag: prevents double saveOrder if handler AND recovery poller both fire
+  const orderInFlightRef = useRef(false);
 
   const [form, setForm] = useState<FormData>({
     firstName: '',
@@ -83,6 +97,135 @@ export default function CheckoutPage() {
       setItemSub(cart.sub || '12-Day Scalp Therapy Shampoo');
     }, 0);
   }, []);
+
+  // ─── UPI App-Switch Recovery ───────────────────────────────────────────────
+  // When a user pays via PhonePe/GPay on mobile, the browser tab is backgrounded
+  // while the UPI app is open. When the user returns, the Razorpay handler may
+  // not fire. This effect polls our verify-payment API when the tab becomes
+  // visible again, completing the order if payment is confirmed.
+  const completeOrderAfterVerification = useCallback(async (paymentId: string) => {
+    const pending = pendingOrderRef.current;
+    if (!pending) return;
+    // Prevent double-order if handler and recovery poller both fire
+    if (orderInFlightRef.current) return;
+    orderInFlightRef.current = true;
+
+    try {
+      const order = await saveOrder({
+        ...pending.orderData,
+        razorpayPaymentId: paymentId,
+        razorpayOrderId: pending.razorpayOrderId,
+      });
+
+      if (!order) {
+        alert('Payment received but order save failed. Please contact support.');
+        return;
+      }
+
+      const orderDetails = {
+        orderNumber: `SM-${order.id.slice(-8).toUpperCase()}`,
+        ...pending.form,
+        itemName: pending.itemName,
+        itemSub: pending.itemSub,
+        quantity: pending.cartQty,
+        total: pending.grandTotal,
+        paymentMethod: 'Razorpay',
+        estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+          .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+        placedAt: new Date().toISOString(),
+      };
+
+      localStorage.setItem('scalp_max_order', JSON.stringify(orderDetails));
+      localStorage.removeItem('scalp_max_cart');
+      localStorage.removeItem('scalp_max_pending_payment');
+      window.dispatchEvent(new Event('cartUpdated'));
+      pendingOrderRef.current = null;
+
+      try {
+        router.push('/order-success');
+      } catch {
+        window.location.href = '/order-success';
+      }
+
+      // Fire-and-forget Shiprocket sync
+      fetch('/api/shiprocket/sync-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: order.id }),
+      }).catch((err) => console.error('Shiprocket sync error:', err));
+    } catch (err) {
+      console.error('Order completion error after verification:', err);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    let pollInterval: ReturnType<typeof setInterval> | null = null;
+    let pollAttempts = 0;
+    const MAX_POLL_ATTEMPTS = 12; // poll for up to ~60 seconds
+
+    const pollPaymentStatus = async () => {
+      const pendingRaw = localStorage.getItem('scalp_max_pending_payment');
+      if (!pendingRaw) {
+        if (pollInterval) clearInterval(pollInterval);
+        return;
+      }
+
+      try {
+        const pending = JSON.parse(pendingRaw);
+        // Restore ref so completeOrderAfterVerification has the data
+        if (!pendingOrderRef.current) {
+          pendingOrderRef.current = pending;
+        }
+
+        pollAttempts++;
+        if (pollAttempts > MAX_POLL_ATTEMPTS) {
+          if (pollInterval) clearInterval(pollInterval);
+          setIsProcessing(false);
+          return;
+        }
+
+        const res = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ razorpayOrderId: pending.razorpayOrderId }),
+        });
+        const data = await res.json();
+
+        if (data.paid && data.paymentId) {
+          if (pollInterval) clearInterval(pollInterval);
+          await completeOrderAfterVerification(data.paymentId);
+        }
+      } catch (err) {
+        console.error('Poll error:', err);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        const pendingRaw = localStorage.getItem('scalp_max_pending_payment');
+        if (!pendingRaw) return;
+
+        // Start polling every 5 seconds when tab becomes visible
+        setIsProcessing(true);
+        pollAttempts = 0;
+        pollPaymentStatus(); // immediate first check
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(pollPaymentStatus, 5000);
+      } else {
+        // Tab hidden — stop polling
+        if (pollInterval) {
+          clearInterval(pollInterval);
+          pollInterval = null;
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (pollInterval) clearInterval(pollInterval);
+    };
+  }, [completeOrderAfterVerification]);
 
   const scrollToElement = (id: string) => {
     const el = document.getElementById(id);
@@ -198,7 +341,17 @@ export default function CheckoutPage() {
       const res = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: grandTotal }),
+        // Pass full orderData so the server stores it in Razorpay notes.
+        // This lets /api/payment-callback reconstruct & save the order
+        // server-side — no localStorage needed for the mobile callback path.
+        body: JSON.stringify({
+          amount: grandTotal,
+          orderData: {
+            ...orderData,
+            itemName,
+            itemSub,
+          },
+        }),
       });
 
       const responseData = await res.json();
@@ -206,7 +359,23 @@ export default function CheckoutPage() {
         const errMsg = responseData.description || responseData.details || responseData.error || 'No order ID returned';
         throw new Error(errMsg);
       }
-      const orderId = responseData.orderId;
+      const razorpayOrderId = responseData.orderId;
+
+      // ── Save pending payment data to localStorage BEFORE opening Razorpay ──
+      // This is the key to UPI app-switch recovery: if the user pays in
+      // PhonePe/GPay and the browser tab is killed, we can still verify the
+      // payment and complete the order when the tab becomes visible again.
+      const pendingPayload = {
+        orderData,
+        razorpayOrderId,
+        itemName,
+        itemSub,
+        cartQty,
+        grandTotal,
+        form,
+      };
+      pendingOrderRef.current = pendingPayload;
+      localStorage.setItem('scalp_max_pending_payment', JSON.stringify(pendingPayload));
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -214,11 +383,15 @@ export default function CheckoutPage() {
         currency: 'INR',
         name: 'SCALP MAX',
         description: itemName + ' - ' + itemSub,
-        order_id: orderId,
-        // webview_intent: true — CRITICAL for mobile UPI redirect fix.
-        // Forces the mobile browser frame to maintain a background anchor connection
-        // so when Google Pay / PhonePe closes after PIN entry, the browser tab is
-        // pulled forward and the handler callback fires correctly.
+        order_id: razorpayOrderId,
+        // callback_url — THE PRIMARY FIX for mobile UPI (PhonePe/GPay).
+        // Razorpay POSTs payment details to this URL after the UPI app
+        // completes, entirely server-side. Works even when the mobile browser
+        // tab is killed during the app-switch. Our route verifies the HMAC
+        // signature, saves the order to Supabase, and redirects to /order-success.
+        callback_url: `${window.location.origin}/api/payment-callback`,
+        // webview_intent: true — additional hint to keep the browser frame
+        // alive while the UPI app is in the foreground (belt-and-suspenders).
         webview_intent: true,
         prefill: {
           name: `${form.firstName} ${form.lastName}`,
@@ -229,6 +402,13 @@ export default function CheckoutPage() {
           contact: `+91${form.phone}`,
         },
         handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string }) => {
+          // Guard: prevent double-order if recovery poller fires at the same time
+          if (orderInFlightRef.current) return;
+          orderInFlightRef.current = true;
+          // Clear the pending payment — handler fired normally (desktop or lucky mobile)
+          localStorage.removeItem('scalp_max_pending_payment');
+          pendingOrderRef.current = null;
+
           const order = await saveOrder({
             ...orderData,
             razorpayPaymentId: response.razorpay_payment_id,
@@ -281,7 +461,18 @@ export default function CheckoutPage() {
             }))
             .catch((err) => console.error('Shiprocket sync error:', err));
         },
-        modal: { ondismiss: () => setIsProcessing(false) },
+        modal: {
+          ondismiss: () => {
+            // Only stop the spinner if there's no pending UPI payment recovery in progress.
+            // On mobile, Razorpay sometimes fires ondismiss when the user returns from
+            // PhonePe/GPay — we must NOT clear isProcessing in that case or the
+            // recovery polling spinner will disappear.
+            const hasPending = !!localStorage.getItem('scalp_max_pending_payment');
+            if (!hasPending) {
+              setIsProcessing(false);
+            }
+          },
+        },
         theme: { color: '#c9a84c' },
       };
 
@@ -294,6 +485,8 @@ export default function CheckoutPage() {
       };
       script.onerror = () => {
         alert('Failed to load payment gateway. Check your internet connection.');
+        localStorage.removeItem('scalp_max_pending_payment');
+        pendingOrderRef.current = null;
         setIsProcessing(false);
       };
       document.body.appendChild(script);
@@ -302,6 +495,8 @@ export default function CheckoutPage() {
       const errorObj = err as { message?: string };
       console.error('Razorpay error:', err);
       alert(`Payment failed: ${errorObj.message || 'Please try again.'}`);
+      localStorage.removeItem('scalp_max_pending_payment');
+      pendingOrderRef.current = null;
       setIsProcessing(false);
     }
   };
@@ -317,8 +512,14 @@ export default function CheckoutPage() {
           Back to Cart
         </button>
         <Link href="/" className={styles.logoWrap} aria-label="ScalpMax Home">
-          <span className={styles.logoScalp}>SCALP</span>
-          <span className={styles.logoMax}>MAX</span>
+          <Image
+            src="/logo.png"
+            alt="SCALP MAX"
+            width={110}
+            height={36}
+            style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+            priority
+          />
         </Link>
         <div className={styles.steps}>
           <span className={styles.stepDone}>Cart</span>

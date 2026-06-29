@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './cart.module.css';
 
 interface CartItem {
@@ -85,8 +86,14 @@ export default function CartPage() {
           Continue Shopping
         </button>
         <Link href="/" className={styles.logoWrap} aria-label="ScalpMax Home">
-          <span className={styles.logoScalp}>SCALP</span>
-          <span className={styles.logoMax}>MAX</span>
+          <Image
+            src="/logo.png"
+            alt="SCALP MAX"
+            width={110}
+            height={36}
+            style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+            priority
+          />
         </Link>
         <div className={styles.secureTag}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle' }}>

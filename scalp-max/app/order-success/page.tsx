@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './order-success.module.css';
+import { supabase } from '@/lib/supabaseClient';
 
 interface Order {
   orderNumber: string;
@@ -25,31 +27,86 @@ interface Order {
   itemSub?: string;
 }
 
-export default function OrderSuccessPage() {
+// ─── Inner component (needs useSearchParams, must be wrapped in Suspense) ─────
+function OrderSuccessContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showConfetti, setShowConfetti] = useState(false);
   const [confetti, setConfetti] = useState<Array<{ left: string; delay: string }>>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem('scalp_max_order');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      const items = Array.from({ length: 20 }).map(() => ({
+    const oid = searchParams.get('oid');
+
+    const buildConfetti = () =>
+      Array.from({ length: 20 }).map(() => ({
         left: `${Math.random() * 100}%`,
         delay: `${Math.random() * 2}s`,
       }));
-      // Set order instantly — no delay
+
+    // ── Path 1: localStorage (desktop / client-side handler flow) ────────────
+    const stored = localStorage.getItem('scalp_max_order');
+    if (stored) {
+      const parsed = JSON.parse(stored);
       setOrder(parsed);
-      setConfetti(items);
+      setConfetti(buildConfetti());
       setIsLoading(false);
-      // Slight delay only for confetti animation (cosmetic)
       setTimeout(() => setShowConfetti(true), 150);
-    } else {
-      router.push('/');
+      return;
     }
-  }, [router]);
+
+    // ── Path 2: ?oid= param (mobile UPI callback_url flow) ───────────────────
+    // When Razorpay's callback_url redirects the user here, localStorage is
+    // empty because the mobile browser tab was killed during the PhonePe /
+    // GPay app-switch. We fetch the saved order from Supabase instead.
+    if (oid) {
+      (async () => {
+        const { data, error } = await supabase
+          .from('orders')
+          .select('*, order_items(*)')
+          .eq('id', oid)
+          .single();
+
+        if (error || !data) {
+          console.error('Failed to fetch order from Supabase:', error);
+          router.push('/');
+          return;
+        }
+
+        // Map Supabase row → Order display shape
+        const nameParts = (data.customer_name || '').split(' ');
+        const reconstructed: Order = {
+          orderNumber: `SM-${data.id.slice(-8).toUpperCase()}`,
+          firstName:  nameParts[0] || '',
+          lastName:   nameParts.slice(1).join(' ') || '',
+          email:      data.customer_email || '',
+          phone:      data.customer_phone || '',
+          address1:   data.address || '',
+          city:       data.city    || '',
+          state:      data.state   || '',
+          pincode:    data.pincode || '',
+          quantity:   data.order_items?.[0]?.quantity || 1,
+          total:      data.total   || 0,
+          paymentMethod: 'Razorpay',
+          estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+            .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+          placedAt:  data.created_at || new Date().toISOString(),
+          itemName:  'SCALP MAX KIT',
+          itemSub:   '12-Day Scalp Therapy Shampoo',
+        };
+
+        setOrder(reconstructed);
+        setConfetti(buildConfetti());
+        setIsLoading(false);
+        setTimeout(() => setShowConfetti(true), 150);
+      })();
+      return;
+    }
+
+    // No data at all — redirect home
+    router.push('/');
+  }, [router, searchParams]);
 
   // Show a loading spinner during initial mount (brief SSR hydration)
   if (isLoading) {
@@ -105,8 +162,14 @@ export default function OrderSuccessPage() {
       {/* Header */}
       <header className={styles.header}>
         <Link href="/" className={styles.logoWrap} aria-label="ScalpMax Home">
-          <span className={styles.logoScalp}>SCALP</span>
-          <span className={styles.logoMax}>MAX</span>
+          <Image
+            src="/logo.png"
+            alt="SCALP MAX"
+            width={110}
+            height={36}
+            style={{ objectFit: 'contain', height: '36px', width: 'auto' }}
+            priority
+          />
         </Link>
       </header>
 
@@ -192,7 +255,9 @@ export default function OrderSuccessPage() {
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Payment</span>
                 <span className={styles.detailValue}>
-                  {order.paymentMethod === 'razorpay' ? 'Razorpay (Online)' : 'Cash on Delivery'}
+                  {order.paymentMethod === 'razorpay' || order.paymentMethod === 'Razorpay'
+                    ? 'Razorpay (Online)'
+                    : 'Cash on Delivery'}
                 </span>
               </div>
               <div className={`${styles.detailRow} ${styles.totalRow}`}>
@@ -203,10 +268,7 @@ export default function OrderSuccessPage() {
               </div>
             </div>
           </div>
-
         </div>
-
-
 
         {/* Actions */}
         <div className={styles.actions}>
@@ -225,5 +287,14 @@ export default function OrderSuccessPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+// ─── Default export: wraps in Suspense (required for useSearchParams) ─────────
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <OrderSuccessContent />
+    </Suspense>
   );
 }

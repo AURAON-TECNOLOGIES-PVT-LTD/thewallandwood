@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -71,8 +72,14 @@ export default function Header() {
           {/* Center Column: Logo */}
           <div className={styles.centerCol}>
             <Link href="/" className={styles.logo} aria-label="ScalpMax Home">
-              <span className={styles.logoScalp}>SCALP</span>
-              <span className={styles.logoMax}>MAX</span>
+              <Image
+                src="/logo.png"
+                alt="SCALP MAX"
+                width={120}
+                height={40}
+                style={{ objectFit: 'contain', height: '40px', width: 'auto' }}
+                priority
+              />
             </Link>
           </div>
 

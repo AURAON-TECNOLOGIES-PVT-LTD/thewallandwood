@@ -8,12 +8,28 @@ const razorpay = new Razorpay({
 
 export async function POST(req: Request) {
   try {
-    const { amount } = await req.json();
+    const { amount, orderData } = await req.json();
 
     const order = await razorpay.orders.create({
       amount: amount * 100, // convert to paise
       currency: 'INR',
       receipt: `receipt_${Date.now()}`,
+      // Store customer + order data in notes so the server-side
+      // payment-callback can reconstruct and save the order without
+      // needing localStorage (critical for mobile UPI redirect flow).
+      notes: orderData ? {
+        customer_name: orderData.customerName || '',
+        customer_email: orderData.customerEmail || '',
+        customer_phone: orderData.customerPhone || '',
+        address: orderData.address || '',
+        city: orderData.city || '',
+        state: orderData.state || '',
+        pincode: orderData.pincode || '',
+        quantity: String(orderData.quantity || 1),
+        total: String(amount),
+        item_name: orderData.itemName || 'SCALP MAX KIT',
+        item_sub: orderData.itemSub || '12-Day Scalp Therapy Shampoo',
+      } : {},
     });
 
     return NextResponse.json({ orderId: order.id });
@@ -30,3 +46,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
