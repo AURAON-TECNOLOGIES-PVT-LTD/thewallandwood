@@ -4,6 +4,7 @@ import HomeProduct from '@/components/HomeProduct/HomeProduct';
 import Problem from '@/components/Problem/Problem';
 import BestSellers from '@/components/BestSellers/BestSellers';
 import HowItWorks from '@/components/HowItWorks/HowItWorks';
+import AboutFounder from '@/components/AboutFounder/AboutFounder';
 import Footer from '@/components/Footer/Footer';
 import styles from './page.module.css';
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Problem />
       <BestSellers />
       <HowItWorks />
+      <AboutFounder />
       <Footer />
     </main>
   );
