@@ -75,9 +75,9 @@ export default function Header() {
               <Image
                 src="/logo.png"
                 alt="SCALP MAX"
-                width={120}
-                height={40}
-                style={{ objectFit: 'contain', height: '40px', width: 'auto' }}
+                width={732}
+                height={289}
+                style={{ objectFit: 'contain', height: '52px', width: 'auto' }}
                 priority
               />
             </Link>

@@ -106,7 +106,7 @@ export default function Hero() {
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease' }}
             >
               <button className={styles.btnPrimary} onClick={handleAddToCart} id="hero-shop-now">
-                Add to Cart
+                Buy Now
               </button>
             </div>
           </div>

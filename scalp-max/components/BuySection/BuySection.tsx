@@ -280,7 +280,7 @@ export default function BuySection() {
                 className={`${styles.addToCartBtn} ${addedToCart ? styles.added : ''}`}
                 onClick={handleAddToCart}
                 id="add-to-cart"
-                aria-label="Add to cart"
+                aria-label="Buy now"
               >
                 {addedToCart ? (
                   <>
@@ -290,10 +290,9 @@ export default function BuySection() {
                 ) : (
                   <>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                      <path d="M5 3h14l1 9H4L5 3z"/><path d="M16 13a4 4 0 0 1-8 0"/>
                     </svg>
-                    <span>Add to Cart</span>
+                    <span>Buy Now</span>
                   </>
                 )}
               </button>
