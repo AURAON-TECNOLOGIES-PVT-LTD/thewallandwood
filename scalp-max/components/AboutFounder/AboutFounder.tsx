@@ -25,7 +25,7 @@ export default function AboutFounder() {
 
             <p className={styles.body}>
               Chungadala Sai Balaji Singh is the founder of{' '}
-              <strong>SCALP MAX<sup>®️</sup></strong>, a brand built on the belief that
+              <strong>SCALP MAX<sup>™</sup></strong>, a brand built on the belief that
               healthy-looking hair begins with a healthy scalp.
             </p>
 
@@ -36,7 +36,7 @@ export default function AboutFounder() {
             </div>
 
             <p className={styles.body}>
-              Driven by this philosophy, the vision behind SCALP MAX<sup>®️</sup> is to
+              Driven by this philosophy, the vision behind SCALP MAX<sup>™</sup> is to
               develop modern scalp-care solutions that combine science-backed ingredients
               with botanical support — helping people build better scalp-care routines
               that actually work.
@@ -59,7 +59,7 @@ export default function AboutFounder() {
               </div>
             </div>
             <div className={styles.emblemStat}>
-              <span className={styles.emblemStatNum}>®️</span>
+              <span className={styles.emblemStatNum}>™</span>
               <span className={styles.emblemStatLabel}>Registered Brand</span>
             </div>
           </div>

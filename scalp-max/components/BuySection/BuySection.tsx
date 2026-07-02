@@ -54,7 +54,7 @@ const trustBadges = [
 const PRODUCTS = [
   {
     id: 1,
-    name: 'SCALP MAX®',
+    name: 'SCALP MAX™',
     sub: '12-Day Scalp Therapy Shampoo',
     price: 749,
     originalPrice: 1299,

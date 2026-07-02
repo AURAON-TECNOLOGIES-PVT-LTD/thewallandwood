@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [cartTotal, setCartTotal] = useState(749);
   const [cartQty, setCartQty] = useState(1);
-  const [itemName, setItemName] = useState('SCALP MAX®');
+  const [itemName, setItemName] = useState('SCALP MAX™');
   const [itemSub, setItemSub] = useState('12-Day Scalp Therapy Shampoo');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});

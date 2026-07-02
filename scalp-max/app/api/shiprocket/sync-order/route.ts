@@ -106,7 +106,7 @@ export async function POST(req: Request) {
       shipping_is_billing: true,
       order_items: [
         {
-          name: "SCALP MAX® 12-Day Scalp Therapy System",
+          name: "SCALP MAX™ 12-Day Scalp Therapy System",
           sku: "SM-1",
           units: order.order_items?.[0]?.quantity || 1,
           selling_price: order.order_items?.[0]?.price || order.total,

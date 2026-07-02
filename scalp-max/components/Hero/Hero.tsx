@@ -41,7 +41,7 @@ export default function Hero() {
   const handleAddToCart = () => {
     const cart = {
       id: 1,
-      name: 'SCALP MAX®',
+      name: 'SCALP MAX™',
       sub: '12-Day Scalp Therapy Shampoo',
       quantity: 1,
       price: 749,

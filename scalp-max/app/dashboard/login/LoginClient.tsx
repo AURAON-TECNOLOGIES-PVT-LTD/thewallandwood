@@ -58,7 +58,7 @@ export default function LoginClient() {
           </div>
           <div>
             <div className={styles.logoText}>
-              SCALP MAX<sup className={styles.logoSup}>®</sup>
+              SCALP MAX<sup className={styles.logoSup}>™</sup>
             </div>
             <div className={styles.logoSub}>Admin Dashboard</div>
           </div>

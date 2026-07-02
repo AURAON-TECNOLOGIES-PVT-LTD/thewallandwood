@@ -98,7 +98,7 @@ export default function WhyScalpMax() {
           >
             <div className={styles.colHeader}>
               <span className={styles.colIconGold}>✓</span>
-              <h3 className={styles.colTitleGold}>SCALP MAX®</h3>
+              <h3 className={styles.colTitleGold}>SCALP MAX™</h3>
               <p className={styles.colSub}>Professional-grade system</p>
             </div>
             <ul className={styles.featureList}>

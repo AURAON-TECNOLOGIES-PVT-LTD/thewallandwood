@@ -4,8 +4,8 @@ import BuySection from '@/components/BuySection/BuySection';
 import Footer from '@/components/Footer/Footer';
 
 export const metadata = {
-  title: "Clinical Formulation & Key Ingredients — SCALP MAX®",
-  description: "Explore the 9 active ingredients in SCALP MAX® including Piroctone Olamine, Climbazole, Niacinamide, Zinc PCA, and Panthenol.",
+  title: "Clinical Formulation & Key Ingredients — SCALP MAX™",
+  description: "Explore the 9 active ingredients in SCALP MAX™ including Piroctone Olamine, Climbazole, Niacinamide, Zinc PCA, and Panthenol.",
 };
 
 export default function IngredientsPage() {

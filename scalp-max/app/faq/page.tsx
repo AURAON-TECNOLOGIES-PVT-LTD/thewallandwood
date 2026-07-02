@@ -4,8 +4,8 @@ import BuySection from '@/components/BuySection/BuySection';
 import Footer from '@/components/Footer/Footer';
 
 export const metadata = {
-  title: "Frequently Asked Questions — SCALP MAX® Support",
-  description: "Get answers to all your questions about SCALP MAX® usage, safety, delivery, ingredients, and the 12-day alternating protocol.",
+  title: "Frequently Asked Questions — SCALP MAX™ Support",
+  description: "Get answers to all your questions about SCALP MAX™ usage, safety, delivery, ingredients, and the 12-day alternating protocol.",
 };
 
 export default function FAQPage() {
