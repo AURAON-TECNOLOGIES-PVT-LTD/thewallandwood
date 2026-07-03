@@ -28,7 +28,7 @@ export async function POST(req: Request) {
         quantity: String(orderData.quantity || 1),
         total: String(amount),
         item_name: orderData.itemName || 'SCALP MAX KIT',
-        item_sub: orderData.itemSub || '12-Day Scalp Therapy Shampoo',
+        item_sub: orderData.itemSub || '12-Day ScalpMax Kit',
       } : {},
     });
 

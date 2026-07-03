@@ -42,7 +42,7 @@ export default function Hero() {
     const cart = {
       id: 1,
       name: 'SCALP MAX™',
-      sub: '12-Day Scalp Therapy Shampoo',
+      sub: '12-Day ScalpMax Kit',
       quantity: 1,
       price: 749,
       originalPrice: 1299,
@@ -78,8 +78,8 @@ export default function Hero() {
               className={styles.heading}
               style={{ opacity: 0, transform: 'translateY(40px)', transition: 'all 0.8s ease' }}
             >
-              Scalp Therapy<br />
-              <span className={styles.titleHighlight}>Shampoo 7.3%</span>
+              ScalpMax<br />
+              <span className={styles.titleHighlight}>Kit</span>
             </h1>
 
             <div className={styles.dividerLine} />
@@ -102,11 +102,21 @@ export default function Hero() {
 
             <div
               ref={ctaRef}
-              className={styles.ctaGroup}
+              className={styles.priceCard}
               style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.8s ease' }}
             >
-              <button className={styles.btnPrimary} onClick={handleAddToCart} id="hero-shop-now">
-                Buy Now
+              <div className={styles.priceRow}>
+                <span className={styles.priceSymbol}>₹</span>
+                <span className={styles.priceValue}>749</span>
+              </div>
+              <p className={styles.taxText}>Inclusive of all taxes</p>
+              <button className={styles.btnBuyBox} onClick={handleAddToCart} id="hero-shop-now">
+                <span>Buy Now</span>
+                <span className={styles.btnBuyBoxArrow}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
               </button>
             </div>
           </div>

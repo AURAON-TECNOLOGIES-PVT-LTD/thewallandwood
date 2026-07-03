@@ -105,6 +105,78 @@
   gap: 1rem;
 }
 
+.priceCard {
+  width: 100%;
+  max-width: 440px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-body);
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.priceSymbol {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  margin-right: 2px;
+}
+
+.priceValue {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1;
+}
+
+.taxText {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.btnBuyBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  background: #0d1b2a;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.btnBuyBox:hover {
+  background: #1a2e40;
+  transform: translateY(-1px);
+}
+
+.btnBuyBoxArrow {
+  position: absolute;
+  right: 24px;
+  display: flex;
+  align-items: center;
+}
+
 .btnPrimary {
   padding: 16px 40px;
   background: #0d1b2a;
@@ -389,6 +461,10 @@
   .content {
     align-items: center;
     text-align: center;
+  }
+
+  .priceCard {
+    margin: 0 auto 1.5rem;
   }
 
   .dividerLine {

@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   const [cartTotal, setCartTotal] = useState(749);
   const [cartQty, setCartQty] = useState(1);
   const [itemName, setItemName] = useState('SCALP MAX™');
-  const [itemSub, setItemSub] = useState('12-Day Scalp Therapy Shampoo');
+  const [itemSub, setItemSub] = useState('12-Day ScalpMax Kit');
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [pincodeStatus, setPincodeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -77,7 +77,7 @@ export default function CheckoutPage() {
         price: 749,
         total: 749,
         name: 'SCALP MAX™',
-        sub: '12-Day Scalp Therapy Shampoo',
+        sub: '12-Day ScalpMax Kit',
         features: [
           '12 Therapy Bottles (C1–C6 + T1–T6)',
           'Day-by-Day Usage Guide',
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
       setCartTotal(cart.total || 749);
       setCartQty(cart.quantity || 1);
       setItemName((cart.name || 'SCALP MAX™').replace(/®/g, '™'));
-      setItemSub(cart.sub || '12-Day Scalp Therapy Shampoo');
+      setItemSub(cart.sub || '12-Day ScalpMax Kit');
     }, 0);
   }, []);
 

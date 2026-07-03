@@ -93,7 +93,7 @@ function OrderSuccessContent() {
             .toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
           placedAt:  data.created_at || new Date().toISOString(),
           itemName:  'SCALP MAX KIT',
-          itemSub:   '12-Day Scalp Therapy Shampoo',
+          itemSub:   '12-Day ScalpMax Kit',
         };
 
         setOrder(reconstructed);
@@ -183,7 +183,7 @@ function OrderSuccessContent() {
           </div>
           <h1 className={styles.successTitle}>Order Confirmed!</h1>
           <p className={styles.successSubtitle}>
-            Your {order.itemName || '12-Day Scalp Therapy Shampoo'} is on its way. Get ready to restore your scalp!
+            Your {order.itemName || '12-Day ScalpMax Kit'} is on its way. Get ready to restore your scalp!
           </p>
           <div className={styles.orderNum} aria-label={`Order number ${order.orderNumber}`}>
             Order #{order.orderNumber}

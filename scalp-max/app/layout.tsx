@@ -3,9 +3,9 @@ import "./globals.css";
 import VisitTracker from "@/components/VisitTracker/VisitTracker";
 
 export const metadata: Metadata = {
-  title: "SCALP MAX™ — 12-Day Scalp Therapy Shampoo | Restore Your Scalp",
+  title: "SCALP MAX™ — 12-Day ScalpMax Kit | Restore Your Scalp",
   description:
-    "The SCALP MAX™ 12-Day Scalp Therapy Shampoo scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
+    "The SCALP MAX™ 12-Day ScalpMax Kit scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
   keywords:
     "scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, scalp care, SCALP MAX",
   icons: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     apple: '/logo.png',
   },
   openGraph: {
-    title: "SCALP MAX™ — 12-Day Scalp Therapy Shampoo",
+    title: "SCALP MAX™ — 12-Day ScalpMax Kit",
     description:
       "Restore Your Scalp. Revive Your Hair. Professional-grade 12-day alternating therapy shampoo.",
     type: "website",

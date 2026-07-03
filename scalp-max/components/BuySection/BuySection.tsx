@@ -55,7 +55,7 @@ const PRODUCTS = [
   {
     id: 1,
     name: 'SCALP MAX™',
-    sub: '12-Day Scalp Therapy Shampoo',
+    sub: '12-Day ScalpMax Kit',
     price: 749,
     originalPrice: 1299,
     discountText: 'Save 42%',
@@ -191,7 +191,7 @@ export default function BuySection() {
             <em>12-Day Journey</em>
           </h2>
           <p className={styles.tagline}>
-            The only scalp therapy shampoo you&apos;ll ever need.
+            The only ScalpMax kit you&apos;ll ever need.
           </p>
 
           <div className={styles.promises}>
