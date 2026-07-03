@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     "scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, scalp care, SCALP MAX",
   icons: {
     icon: [
-      { url: '/logo.png', type: 'image/png' },
+      { url: '/favicon.png', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.png',
   },
   openGraph: {
     title: "SCALP MAX™ — 12-Day ScalpMax Kit",
@@ -34,9 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" href="/logo.png" />
-        <link rel="shortcut icon" type="image/png" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
