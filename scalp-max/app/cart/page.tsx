@@ -62,7 +62,7 @@ export default function CartPage() {
   };
 
   const handleContinue = () => {
-    router.push('/#best-sellers');
+    router.push('/');
   };
 
   const itemPrice = cart?.price ?? 749;
