@@ -28,6 +28,8 @@ export default function CartPage() {
     const stored = localStorage.getItem('scalp_max_cart');
     if (stored) {
       const parsed = JSON.parse(stored);
+      // Sanitize legacy ® symbol → ™
+      if (parsed.name) parsed.name = parsed.name.replace(/®/g, '™');
       setTimeout(() => {
         setCart(parsed);
         setQuantity(parsed.quantity);
@@ -67,7 +69,7 @@ export default function CartPage() {
 
   const itemPrice = cart?.price ?? 749;
   const itemOriginalPrice = cart?.originalPrice ?? 1299;
-  const itemName = cart?.name ?? 'SCALP MAX KIT';
+  const itemName = (cart?.name ?? 'SCALP MAX™').replace(/®/g, '™');
   const itemSub = cart?.sub ?? '12-Day Scalp Therapy Shampoo';
   const itemFeatures = cart?.features ?? [];
 

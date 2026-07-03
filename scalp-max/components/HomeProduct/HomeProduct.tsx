@@ -40,7 +40,7 @@ export default function HomeProduct() {
     setIsAdding(true);
     const cart = {
       id: 1,
-      name: 'SCALP MAX KIT',
+      name: 'SCALP MAX™',
       sub: '12-Day Scalp Therapy Shampoo',
       quantity: 1,
       price: 749,

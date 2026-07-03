@@ -76,7 +76,7 @@ export default function CheckoutPage() {
         quantity: 1,
         price: 749,
         total: 749,
-        name: 'SCALP MAX KIT',
+        name: 'SCALP MAX™',
         sub: '12-Day Scalp Therapy Shampoo',
         features: [
           '12 Therapy Bottles (C1–C6 + T1–T6)',
@@ -93,7 +93,7 @@ export default function CheckoutPage() {
     setTimeout(() => {
       setCartTotal(cart.total || 749);
       setCartQty(cart.quantity || 1);
-      setItemName(cart.name || 'SCALP MAX KIT');
+      setItemName((cart.name || 'SCALP MAX™').replace(/®/g, '™'));
       setItemSub(cart.sub || '12-Day Scalp Therapy Shampoo');
     }, 0);
   }, []);
@@ -381,7 +381,7 @@ export default function CheckoutPage() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: grandTotal * 100,
         currency: 'INR',
-        name: 'SCALP MAX',
+        name: 'SCALP MAX™',
         description: itemName + ' - ' + itemSub,
         order_id: razorpayOrderId,
         // callback_url — THE PRIMARY FIX for mobile UPI (PhonePe/GPay).
