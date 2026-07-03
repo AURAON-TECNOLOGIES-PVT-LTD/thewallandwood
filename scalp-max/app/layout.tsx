@@ -8,6 +8,13 @@ export const metadata: Metadata = {
     "The SCALP MAX™ 12-Day Scalp Therapy Shampoo scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
   keywords:
     "scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, scalp care, SCALP MAX",
+  icons: {
+    icon: [
+      { url: '/logo.png', type: 'image/png' },
+    ],
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: "SCALP MAX™ — 12-Day Scalp Therapy Shampoo",
     description:
@@ -27,6 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="shortcut icon" type="image/png" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
