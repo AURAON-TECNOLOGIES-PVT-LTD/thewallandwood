@@ -20,11 +20,11 @@ export default function AboutFounder() {
             </h2>
 
             <p className={styles.founderName}>
-              Chungadala Sai Balaji Singh
+              Ch. Sai Balaji Singh Rajput
             </p>
 
             <p className={styles.body}>
-              Chungadala Sai Balaji Singh is the founder of{' '}
+              Ch. Sai Balaji Singh Rajput is the founder of{' '}
               <strong>SCALP MAX<sup>™</sup></strong>, a brand built on the belief that
               healthy-looking hair begins with a healthy scalp.
             </p>
