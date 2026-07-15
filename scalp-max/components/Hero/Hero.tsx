@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import styles from './Hero.module.css';
 
 const IMAGES = [
-  '/hero-product.jpg',
+  '/hero-slide-1.jpg',
   '/hero-slide-2.jpg',
   '/hero-slide-3.jpg',
   '/hero-slide-4.jpg',
