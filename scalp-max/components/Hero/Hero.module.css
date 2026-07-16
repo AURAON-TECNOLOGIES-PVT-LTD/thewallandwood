@@ -8,7 +8,7 @@
   overflow: visible;
   /* 80px header nav + breathing room */
   padding-top: 90px;
-  background: #ffffff;
+  background: linear-gradient(135deg, #F7E7CE 0%, #FAF0DF 30%, #EAD9BC 55%, #FAF0DF 75%, #F7E7CE 100%);
 }
 
 .inner {
@@ -16,11 +16,12 @@
   z-index: 1;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 3rem 3rem 5rem;
+  padding: 2rem 3rem 4rem;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 4rem;
   align-items: center;
+  min-height: calc(100vh - 210px); /* Fit the viewport height perfectly */
 }
 
 /* Content */
@@ -34,35 +35,30 @@
 /* Eyebrow Badge */
 .badge {
   font-family: var(--font-body);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 1.25rem;
+  color: #C5A880; /* Gold/tan eyebrow color from mockup */
+  margin-bottom: 0.5rem;
+}
+
+.eyebrowLine {
+  width: 60px;
+  height: 2px;
+  background-color: #C5A880;
+  margin-bottom: 1.5rem;
 }
 
 /* Heading */
 .heading {
-  font-family: var(--font-body);
-  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-  font-weight: 800;
-  color: #0d1b2a;
-  line-height: 1.05;
+  font-family: var(--font-display); /* Premium serif font */
+  font-size: clamp(3rem, 5.5vw, 4.2rem);
+  font-weight: 500;
+  color: #12141A;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.03em;
-}
-
-.titleHighlight {
-  color: #0d1b2a;
-}
-
-/* Underline Divider */
-.dividerLine {
-  width: 80px;
-  height: 2.5px;
-  background-color: #0d1b2a;
-  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
 }
 
 /* Subheading */
@@ -76,140 +72,129 @@
 }
 
 .subheading strong {
-  color: #0d1b2a;
+  color: #12141A;
   font-weight: 700;
 }
 
-/* Badge Highlights row */
-.badgeHighlights {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #4a5568;
-  margin-bottom: 2.5rem;
-}
-
-.badgeSep {
-  color: #cbd5e1;
-  font-weight: 300;
-}
-
-/* CTA Group */
-.ctaGroup {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
+/* Price Card - side-by-side flex layout */
 .priceCard {
   width: 100%;
-  max-width: 440px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 24px;
+  max-width: 520px;
+  background: #F5F0EA; /* Soft cream/beige background from mockup */
+  border: none;
+  border-radius: 20px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-body);
+}
+
+.priceLeft {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-  font-family: var(--font-body);
 }
 
 .priceRow {
   display: flex;
   align-items: baseline;
-  margin-bottom: 4px;
 }
 
 .priceSymbol {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #0d1b2a;
+  color: #12141A;
   margin-right: 2px;
 }
 
 .priceValue {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  color: #0d1b2a;
+  color: #12141A;
   line-height: 1;
 }
 
 .taxText {
   font-size: 0.85rem;
-  color: #64748b;
-  margin-bottom: 20px;
-  margin-top: 0;
+  color: #718096;
+  margin: 6px 0 0 0;
 }
 
 .btnBuyBox {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 16px 24px;
-  background: #0d1b2a;
+  gap: 12px;
+  padding: 14px 32px;
+  background: #12141A; /* Dark navy pill button */
   color: #ffffff;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 100px; /* Fully rounded pill */
   cursor: pointer;
   position: relative;
   transition: all 0.2s ease;
 }
 
 .btnBuyBox:hover {
-  background: #1a2e40;
+  background: #252a34;
   transform: translateY(-1px);
 }
 
 .btnBuyBoxArrow {
-  position: absolute;
-  right: 24px;
   display: flex;
   align-items: center;
 }
 
-.btnPrimary {
-  padding: 16px 40px;
-  background: #0d1b2a;
-  color: #fff;
+/* Three Trust Highlights Row underneath Card */
+.highlightsRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.highlightCol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.highlightIcon {
+  color: #C5A880; /* Gold/tan color for the icons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.highlightText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.highlightTitle {
   font-family: var(--font-body);
+  font-size: 0.85rem;
   font-weight: 700;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  color: #12141A;
+  margin: 0;
 }
 
-.btnPrimary:hover {
-  background: #1a2e40;
-  transform: translateY(-1px);
-}
-
-.btnSecondary {
-  padding: 15px 35px;
-  background: transparent;
-  color: #0d1b2a;
+.highlightDesc {
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 1rem;
-  border: 1.5px solid #0d1b2a;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btnSecondary:hover {
-  background: rgba(13, 27, 42, 0.04);
+  font-size: 0.78rem;
+  color: #718096;
+  margin: 2px 0 0 0;
 }
 
 /* Image Wrap & Mockup Card */
@@ -221,20 +206,19 @@
 
 .cardContainer {
   position: relative;
-  background: transparent;
-  border-radius: 24px;
-  padding: 0;
+  background: transparent; /* Seamless blend with hero background */
+  border-radius: 28px;
+  padding: 0; /* Remove padding to let the slide image take the full slot */
   overflow: hidden;
   width: 100%;
-  max-width: 420px;
-  aspect-ratio: 3 / 2;
-  height: auto;
+  max-width: 520px;
+  aspect-ratio: 1 / 1; /* Perfect square layout */
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: none;
-  border: none;
-  flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  flex-shrink: 1;
 }
 
 .productImg {
@@ -399,41 +383,83 @@
 
 /* Trust Bar */
 .trustBar {
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 20px 1rem;
+  background: #ffffff; /* White background requested */
+  padding: 3rem 2rem;
   width: 100%;
+  border-top: 1.5px solid #ebebeb;
+  border-bottom: 1.5px solid #ebebeb;
 }
 
 .trustBarInner {
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(7, auto);
-  justify-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
   align-items: center;
-  gap: 0;
 }
 
-.trustItem {
+.trustCol {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.trustIconContainer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(197, 168, 128, 0.3);
+  color: #C5A880; /* Gold/tan icon color */
+}
+
+.trustText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.trustColTitle {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #4a5568;
-  text-align: center;
-  padding: 0 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #12141A; /* Dark navy text for white background */
+  margin: 0 0 4px 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.trustItemSep {
-  color: #d1d5db;
-  font-weight: 300;
-  text-align: center;
+.trustNumber {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #C5A880;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.trustColSub {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #4A5568; /* Dark gray subtext */
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .trustBarInner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 900px) {
   .hero {
-    /* 74px header nav + breathing room */
     padding-top: 84px;
     min-height: unset;
   }
@@ -453,9 +479,8 @@
   }
 
   .cardContainer {
-    aspect-ratio: 4 / 3;
     max-width: 100%;
-    height: auto;
+    aspect-ratio: 1.2;
   }
 
   .content {
@@ -463,61 +488,42 @@
     text-align: center;
   }
 
+  .eyebrowLine {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .priceCard {
     margin: 0 auto 1.5rem;
+    width: 100%;
   }
 
-  .dividerLine {
-    margin: 0 auto 1.5rem;
-  }
-
-  .badgeHighlights {
+  .highlightsRow {
     justify-content: center;
-  }
-
-  .trustBarInner {
-    display: flex;
     flex-wrap: wrap;
-    gap: 1rem 1.5rem;
-    justify-content: center;
-  }
-
-  .trustItem {
-    padding: 0;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .hero {
-    /* 68px header nav + breathing room */
-    padding-top: 78px;
-  }
-
-  .inner {
-    padding: 1.5rem 1rem 2.5rem;
+@media (max-width: 640px) {
+  .trustBarInner {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .ctaGroup {
+  .priceCard {
     flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .priceLeft {
+    align-items: center;
+  }
+
+  .btnBuyBox {
     width: 100%;
-  }
-
-  .btnPrimary,
-  .btnSecondary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .cardContainer {
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  .phoneMockup {
-    width: 160px;
-    height: 300px;
   }
 }
 
@@ -542,7 +548,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: transparent;
 }
 
 /* Arrow buttons */

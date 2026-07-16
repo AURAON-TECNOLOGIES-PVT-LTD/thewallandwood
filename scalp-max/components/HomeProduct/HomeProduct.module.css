@@ -7,7 +7,7 @@
 
 .section {
   width: 100%;
-  background: #fff;
+  background: linear-gradient(135deg, #F7E7CE 0%, #FAF0DF 30%, #EAD9BC 55%, #FAF0DF 75%, #F7E7CE 100%);
   /* Use dvh to fit perfectly on any phone, accounting for browser chrome */
   min-height: calc(100dvh - 70px);
   padding-top: 70px;          /* clear fixed header */
@@ -75,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: transparent;
   border-radius: 4px;
 }
 
