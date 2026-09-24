@@ -3,27 +3,28 @@ import "./globals.css";
 import VisitTracker from "@/components/VisitTracker/VisitTracker";
 
 export const metadata: Metadata = {
-  title: "SCALP MAX™ — 12-Day ScalpMax Kit | Restore Your Scalp",
+  title: "SCALP MAX™ | India’s First Scalp-Focused Hair Care Brand",
   description:
-    "The SCALP MAX™ 12-Day ScalpMax Kit scientifically formulated to eliminate dandruff, control scalp fungus, reduce itching, and restore hair health with professional-grade alternating therapy.",
+    "SCALP MAX™ is India’s first scalp-focused hair care brand. We focus on the scalp first to support healthier-looking hair. Scalp First. Hair Follows.",
   keywords:
-    "scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, scalp care, SCALP MAX",
+    "SCALP MAX, India’s first scalp-focused hair care brand, scalp focused hair care, scalp care, scalp treatment, dandruff treatment, scalp therapy, anti-dandruff, healthy scalp, hair care India",
   icons: {
-    icon: [
-      { url: '/favicon.png', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico',
-    apple: '/favicon.png',
+    icon: [{ url: "/favicon.png", type: "image/png" }],
+    apple: "/favicon.png",
   },
   openGraph: {
-    title: "SCALP MAX™ — 12-Day ScalpMax Kit",
+    title: "SCALP MAX™ | India’s First Scalp-Focused Hair Care Brand",
     description:
-      "Restore Your Scalp. Revive Your Hair. Professional-grade 12-day alternating therapy shampoo.",
+      "SCALP MAX™ is India’s first scalp-focused hair care brand. We focus on the scalp first to support healthier-looking hair. Scalp First. Hair Follows.™",
     type: "website",
     locale: "en_IN",
+    url: "https://scalpmax.in",
   },
   metadataBase: new URL("https://scalpmax.in"),
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -35,10 +36,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
       </head>
       <body suppressHydrationWarning>
         <div className="grain-overlay" aria-hidden="true" />
