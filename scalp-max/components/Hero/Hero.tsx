@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import styles from './Hero.module.css';
 
 const IMAGES = [
-  '/hero-slide-1.jpg',
-  '/hero-slide-2.jpg',
-  '/hero-slide-3.jpg',
-  '/hero-slide-4.jpg',
-  '/hero-slide-5.jpg',
+  '/image1.jpg',
+  '/image2.jpg',
+  '/image3.jpg',
+  '/image4.jpg',
+  '/image5.jpg',
 ];
 
 export default function Hero() {
