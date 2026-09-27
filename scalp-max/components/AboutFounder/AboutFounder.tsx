@@ -10,6 +10,7 @@ export default function AboutFounder() {
       aria-labelledby="founder-title"
     >
       <div className={styles.container}>
+
         {/* Decorative vertical line */}
         <span
           className={styles.verticalLine}
@@ -18,7 +19,7 @@ export default function AboutFounder() {
 
         <div className={styles.inner}>
 
-          {/* LEFT — FOUNDER CONTENT */}
+          {/* FOUNDER CONTENT */}
           <div className={styles.content}>
 
             <div className={styles.sectionLabel}>
@@ -69,18 +70,6 @@ export default function AboutFounder() {
               </span>
             </div>
 
-          </div>
-
-          {/* RIGHT — SCALP MAX LOGO */}
-          <div
-            className={styles.emblem}
-            aria-label="SCALP MAX logo"
-          >
-            <img
-              src="/finallogo.png"
-              alt="SCALP MAX"
-              className={styles.founderLogo}
-            />
           </div>
 
         </div>
