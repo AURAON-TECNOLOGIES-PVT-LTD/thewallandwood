@@ -118,10 +118,20 @@ export default function HomeProduct() {
         )}
 
         {/* ── Product Info ── */}
-        <h1 className={styles.title}>SCALP MAX KIT</h1>
-        <p className={styles.subtitle}>12-Day ScalpMax Kit</p>
-        <p className={styles.desc}>(Cleaning Phase C1–C6 + Treatment Phase T1–T6)</p>
+    {/* ── Product Info ── */}
+<h1 className={styles.title}>
+  SCALP MAX Hair Fall & Dandruff Shampoo Kit
+</h1>
 
+<p className={styles.subtitle}>
+  India’s Best Hair Care Routine.
+</p>
+
+<p className={styles.desc}>
+  A professional 12-day Cleansing + Treatment system designed to cleanse,
+  rebalance and care for your scalp—helping reduce dandruff, hair fall,
+  excess oil & scalp buildup.
+</p>
         {/* ── Price ── */}
         <div className={styles.priceWrap}>
           <span className={styles.price}>₹749.00</span>
