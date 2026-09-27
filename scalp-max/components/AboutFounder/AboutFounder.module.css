@@ -482,15 +482,3 @@
     font-size: 0.86rem;
   }
 }
-
-
-/* =============================================
-   REDUCED MOTION
-   ============================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  * {
-    scroll-behavior: auto !important;
-  }
-}
