@@ -42,7 +42,7 @@ export default function Hero() {
     const cart = {
       id: 1,
       name: 'SCALP MAX™',
-      sub: '12-Day ScalpMax Kit',
+      sub: '12-Day ScalpMax Shampoo Kit',
       quantity: 1,
       price: 749,
       originalPrice: 1299,
@@ -79,7 +79,7 @@ export default function Hero() {
               className={styles.heading}
               style={{ opacity: 0, transform: 'translateY(40px)', transition: 'all 0.8s ease' }}
             >
-              ScalpMax Kit
+              SCALP MAX Hair Fall & Dandruff Shampoo Kit
             </h1>
 
             <p
