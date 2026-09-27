@@ -87,7 +87,7 @@ export default function Hero() {
               className={styles.subheading}
               style={{ opacity: 0, transform: 'translateY(30px)', transition: 'all 0.8s ease' }}
             >
-              Formulated for <strong>oily, flaky & itchy</strong> scalps. An alternating Cleansing + Treatment routine that gently restores scalp balance without stripping.
+             India’s Best Hair Care Routine. A professional 12-day Cleansing + Treatment system designed to cleanse, rebalance and care for your scalp—helping reduce dandruff, hair fall, excess oil & scalp buildup.
             </p>
 
             <div
