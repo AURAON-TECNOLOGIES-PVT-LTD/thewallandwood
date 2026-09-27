@@ -1,34 +1,92 @@
-.section {
-  width: 100%;
-  min-height: 900px;
-
-  background-image: url('/sidedownhome.png');
-  background-size: 100% 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  overflow: hidden;
-
-  image-rendering: auto;
+/* MOBILE TEXT PROBLEMS */
+.mobileProblems {
+  display: none;
 }
 
-/* Tablet */
-@media (max-width: 1000px) {
-  .section {
-    min-height: 750px;
-    background-image: url('/sidedownhome.png');
-    background-position: center center;
-  }
-}
-
-/* Mobile */
 @media (max-width: 600px) {
-  .section {
-    min-height: 650px;
+  .mobileProblems {
+    display: block;
+    padding: 65px 22px;
+    background: #f7f5ef;
+  }
 
-    background-image: url('/problummobile.png');
-    background-size: 100% 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
+  /* Hide the desktop image on mobile */
+  .section {
+    min-height: auto;
+    background-image: none;
+  }
+
+  .mobileLabel {
+    margin: 0 0 18px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #66705f;
+  }
+
+  .mobileTitle {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 46px;
+    line-height: 0.98;
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    color: #182019;
+  }
+
+  .mobileIntro {
+    margin: 22px 0 45px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #687066;
+  }
+
+  .mobileList {
+    border-top: 1px solid rgba(24, 32, 25, 0.16);
+  }
+
+  .mobileProblem {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(24, 32, 25, 0.16);
+  }
+
+  .mobileProblem > span {
+    padding-top: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #8b9584;
+  }
+
+  .mobileProblem h3 {
+    margin: 0 0 7px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: #182019;
+  }
+
+  .mobileProblem p {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #6d746c;
+  }
+
+  .mobileBottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 42px;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #182019;
   }
 }
