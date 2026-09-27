@@ -162,6 +162,7 @@ export default function HomeProduct() {
         </div>
 
         {/* ── CTA ── */}
+{/* ── CTA ── */}
 <button
   className={styles.addBtn}
   onClick={handleAddToCart}
