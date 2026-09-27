@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import styles from './HomeProduct.module.css';
 
 const IMAGES = [
-  '/image1.png',
-  '/image2.png',
-  '/image3.png',
-  '/image4.png',
-  '/image5.png',
+  '/image1.jpg',
+  '/image2.jpg',
+  '/image3.jpg',
+  '/image4.jpg',
+  '/image5.jpg',
 ];
 
 export default function HomeProduct() {
