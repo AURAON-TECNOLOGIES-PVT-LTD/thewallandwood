@@ -334,3 +334,26 @@ background-repeat: no-repeat;
     font-size: 0.58rem;
   }
 }
+/* ── BUY NOW text ── */
+.buyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.buyTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.buyTagline {
+  margin-top: 5px;
+  font-size: 0.52rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  opacity: 0.8;
+  white-space: nowrap;
+}
