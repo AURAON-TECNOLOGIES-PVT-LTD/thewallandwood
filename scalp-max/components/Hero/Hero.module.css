@@ -8,7 +8,10 @@
   overflow: visible;
   /* 80px header nav + breathing room */
   padding-top: 90px;
-  background: linear-gradient(135deg, #F7E7CE 0%, #FAF0DF 30%, #EAD9BC 55%, #FAF0DF 75%, #F7E7CE 100%);
+background-image: url('/homebg.jpg');
+background-size: cover;
+background-position: center center;
+background-repeat: no-repeat;
 }
 
 .inner {
@@ -506,10 +509,13 @@
 }
 
 @media (max-width: 640px) {
-  .trustBarInner {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .hero {
+    background-image: url('/homebgmobile.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
+
 
   .priceCard {
     flex-direction: column;
