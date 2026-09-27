@@ -1,12 +1,22 @@
 /* =============================================
    AboutFounder — SCALP MAX® Founder
    Premium showroom / founder section
-   Background: /public/founders.png
-   Logo: /public/finallogo.png
+
+   Background:
+   /public/founders1.png
+
+   Logo:
+   Removed — no logo overlay
+   ============================================= */
+
+
+/* =============================================
+   MAIN SECTION
    ============================================= */
 
 .section {
   position: relative;
+
   width: 100%;
   min-height: 850px;
 
@@ -21,18 +31,25 @@
       rgba(250, 247, 241, 0.06) 50%,
       rgba(250, 247, 241, 0.12) 100%
     ),
-    url('/founders.png');
+    url('/founders1.png');
 
   background-size: cover;
+
   background-position: center center;
+
   background-repeat: no-repeat;
 }
 
-/* Soft overlay for text readability */
+
+/* =============================================
+   SOFT READABILITY OVERLAY
+   ============================================= */
+
 .section::before {
   content: '';
 
   position: absolute;
+
   inset: 0;
 
   background:
@@ -46,21 +63,23 @@
   pointer-events: none;
 }
 
+
 /* =============================================
    CONTAINER
    ============================================= */
 
 .container {
+  position: relative;
+
+  z-index: 2;
+
   max-width: 1200px;
 
   margin: 0 auto;
 
   padding: 0 2rem;
-
-  position: relative;
-
-  z-index: 2;
 }
+
 
 /* =============================================
    DECORATIVE VERTICAL LINE
@@ -70,41 +89,39 @@
   position: absolute;
 
   left: 2rem;
+
   top: 0;
+
   bottom: 0;
 
   width: 2px;
 
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--teal),
-    transparent
-  );
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      var(--teal),
+      transparent
+    );
 
   opacity: 0.12;
 }
 
+
 /* =============================================
-   TWO COLUMN LAYOUT
+   CONTENT LAYOUT
+   Logo removed — single content column
    ============================================= */
 
 .inner {
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 1fr)
-    420px;
-
-  gap: 5rem;
-
-  align-items: center;
+  display: block;
 
   padding-left: 1.5rem;
 }
 
+
 /* =============================================
-   LEFT CONTENT
+   FOUNDER CONTENT
    ============================================= */
 
 .content {
@@ -114,6 +131,7 @@
 
   max-width: 650px;
 }
+
 
 /* =============================================
    SECTION LABEL
@@ -155,6 +173,7 @@
   opacity: 0.6;
 }
 
+
 /* =============================================
    TITLE
    ============================================= */
@@ -177,6 +196,7 @@
   text-shadow:
     0 1px 8px rgba(255, 255, 255, 0.45);
 }
+
 
 /* =============================================
    FOUNDER NAME
@@ -222,6 +242,7 @@
   opacity: 0.3;
 }
 
+
 /* =============================================
    BODY TEXT
    ============================================= */
@@ -251,8 +272,9 @@
   font-weight: 700;
 }
 
+
 /* =============================================
-   PHILOSOPHY
+   PHILOSOPHY QUOTE
    ============================================= */
 
 .philosophy {
@@ -286,6 +308,7 @@
 
   color: #18231e;
 }
+
 
 /* =============================================
    OWNER BADGE
@@ -342,66 +365,6 @@
   color: #18231e;
 }
 
-/* =============================================
-   RIGHT — LOGO
-   ============================================= */
-
-.emblem {
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 100%;
-
-  min-height: 420px;
-
-  z-index: 3;
-}
-
-/*
-  finallogo.png sits inside the circular
-  area already present in founders.png.
-*/
-
-.founderLogo {
-  display: block;
-
-  width: 190px;
-
-  height: 190px;
-
-  object-fit: contain;
-
-  position: relative;
-
-  z-index: 5;
-
-  /*
-    Helps a white logo-image background
-    blend into the showroom.
-  */
-  mix-blend-mode: multiply;
-
-  filter:
-    contrast(1.05)
-    saturate(1.02);
-
-  transition:
-    transform 0.4s ease,
-    filter 0.4s ease;
-}
-
-.founderLogo:hover {
-  transform: scale(1.025);
-
-  filter:
-    contrast(1.08)
-    saturate(1.04);
-}
 
 /* =============================================
    TABLET
@@ -416,10 +379,6 @@
   }
 
   .inner {
-    grid-template-columns: 1fr;
-
-    gap: 3rem;
-
     padding-left: 0;
   }
 
@@ -429,20 +388,11 @@
     margin: 0 auto;
   }
 
-  .emblem {
-    min-height: 300px;
-  }
-
-  .founderLogo {
-    width: 180px;
-
-    height: 180px;
-  }
-
   .verticalLine {
     display: none;
   }
 }
+
 
 /* =============================================
    MOBILE
@@ -451,6 +401,8 @@
 @media (max-width: 600px) {
 
   .section {
+    min-height: auto;
+
     padding: 4.5rem 0 4rem;
 
     background-position: 60% center;
@@ -462,12 +414,20 @@
         180deg,
         rgba(255, 255, 255, 0.28) 0%,
         rgba(255, 255, 255, 0.05) 55%,
-        rgba(255, 255, 255, 0.2) 100%
+        rgba(255, 255, 255, 0.20) 100%
       );
   }
 
   .container {
     padding: 0 1rem;
+  }
+
+  .inner {
+    padding-left: 0;
+  }
+
+  .content {
+    max-width: 100%;
   }
 
   .title {
@@ -501,17 +461,8 @@
 
     background: rgba(255, 255, 255, 0.65);
   }
-
-  .emblem {
-    min-height: 250px;
-  }
-
-  .founderLogo {
-    width: 155px;
-
-    height: 155px;
-  }
 }
+
 
 /* =============================================
    SMALL MOBILE
@@ -530,13 +481,8 @@
   .body {
     font-size: 0.86rem;
   }
-
-  .founderLogo {
-    width: 140px;
-
-    height: 140px;
-  }
 }
+
 
 /* =============================================
    REDUCED MOTION
@@ -544,7 +490,7 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-  .founderLogo {
-    transition: none;
+  * {
+    scroll-behavior: auto !important;
   }
 }
