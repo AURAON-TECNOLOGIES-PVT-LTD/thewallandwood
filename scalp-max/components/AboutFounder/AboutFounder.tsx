@@ -10,18 +10,25 @@ export default function AboutFounder() {
       aria-labelledby="founder-title"
     >
       <div className={styles.container}>
-
-        <span className={styles.verticalLine} aria-hidden="true" />
+        {/* Decorative vertical line */}
+        <span
+          className={styles.verticalLine}
+          aria-hidden="true"
+        />
 
         <div className={styles.inner}>
 
-          {/* Left — text */}
+          {/* LEFT — FOUNDER CONTENT */}
           <div className={styles.content}>
+
             <div className={styles.sectionLabel}>
               THE STORY BEHIND THE BRAND
             </div>
 
-            <h2 id="founder-title" className={styles.title}>
+            <h2
+              id="founder-title"
+              className={styles.title}
+            >
               About the Founder
             </h2>
 
@@ -34,8 +41,8 @@ export default function AboutFounder() {
               <strong>
                 SCALP MAX<sup>™</sup>
               </strong>
-              , a brand built on the belief that healthy-looking hair begins
-              with a healthy scalp.
+              , a brand built on the belief that healthy-looking
+              hair begins with a healthy scalp.
             </p>
 
             <div className={styles.philosophy}>
@@ -46,10 +53,10 @@ export default function AboutFounder() {
 
             <p className={styles.body}>
               Driven by this philosophy, the vision behind SCALP MAX
-              <sup>™</sup> is to develop modern scalp-care solutions that
-              combine science-backed ingredients with botanical support —
-              helping people build better scalp-care routines that actually
-              work.
+              <sup>™</sup> is to develop modern scalp-care solutions
+              that combine science-backed ingredients with botanical
+              support — helping people build better scalp-care
+              routines that actually work.
             </p>
 
             <div className={styles.ownerBadge}>
@@ -61,16 +68,20 @@ export default function AboutFounder() {
                 Auraon Technologies and Software Solutions Pvt. Ltd.
               </span>
             </div>
+
           </div>
 
-          {/* Right — SCALP MAX logo image */}
-         <div className={styles.emblem}>
-  <img
-    src="/finallogo.png"
-    alt="SCALP MAX"
-    className={styles.founderLogo}
-  />
-</div>
+          {/* RIGHT — SCALP MAX LOGO */}
+          <div
+            className={styles.emblem}
+            aria-label="SCALP MAX logo"
+          >
+            <img
+              src="/finallogo.png"
+              alt="SCALP MAX"
+              className={styles.founderLogo}
+            />
+          </div>
 
         </div>
       </div>
