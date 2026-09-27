@@ -53,21 +53,21 @@
 /* Heading */
 .heading {
   font-family: var(--font-display); /* Premium serif font */
-  font-size: clamp(3rem, 5.5vw, 4.2rem);
+  font-size: clamp(2.5rem, 4.2vw, 3.4rem);
   font-weight: 500;
   color: #12141A;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   letter-spacing: -0.01em;
 }
 
 /* Subheading */
 .subheading {
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 0.98rem;
   color: #4a5568;
-  line-height: 1.7;
-  max-width: 520px;
+  line-height: 1.6;
+  max-width: 500px;
   margin-bottom: 2rem;
 }
 
