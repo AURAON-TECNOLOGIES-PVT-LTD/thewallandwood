@@ -1,19 +1,53 @@
-/* MOBILE TEXT PROBLEMS */
+.section {
+  width: 100%;
+  min-height: 900px;
+  overflow: hidden;
+}
+
+/* DESKTOP */
+.desktopProblem {
+  display: block;
+  width: 100%;
+  min-height: 900px;
+
+  background-image: url('/sidedownhome.png');
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  image-rendering: auto;
+}
+
+/* MOBILE CONTENT HIDDEN BY DEFAULT */
 .mobileProblems {
   display: none;
 }
 
+/* TABLET */
+@media (max-width: 1000px) {
+  .desktopProblem {
+    min-height: 750px;
+    background-position: center center;
+  }
+}
+
+/* MOBILE ONLY */
 @media (max-width: 600px) {
+  .section {
+    min-height: auto;
+    background: #f7f5ef;
+  }
+
+  /* Remove desktop image */
+  .desktopProblem {
+    display: none;
+  }
+
+  /* Show mobile text */
   .mobileProblems {
     display: block;
     padding: 65px 22px;
     background: #f7f5ef;
-  }
-
-  /* Hide the desktop image on mobile */
-  .section {
-    min-height: auto;
-    background-image: none;
   }
 
   .mobileLabel {
