@@ -7,7 +7,10 @@
 
 .section {
   width: 100%;
-  background: linear-gradient(135deg, #F7E7CE 0%, #FAF0DF 30%, #EAD9BC 55%, #FAF0DF 75%, #F7E7CE 100%);
+   background-image: url('/homebgmobile.jpg');
+background-size: cover;
+background-position: center center;
+background-repeat: no-repeat;
   /* Use dvh to fit perfectly on any phone, accounting for browser chrome */
   min-height: calc(100dvh - 70px);
   padding-top: 70px;          /* clear fixed header */
