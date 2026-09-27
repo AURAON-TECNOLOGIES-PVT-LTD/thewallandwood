@@ -11,10 +11,12 @@
 
   image-rendering: auto;
 }
+
 /* Tablet */
 @media (max-width: 1000px) {
   .section {
     min-height: 750px;
+    background-image: url('/sidedownhome.png');
     background-position: center center;
   }
 }
@@ -23,6 +25,10 @@
 @media (max-width: 600px) {
   .section {
     min-height: 650px;
+
+    background-image: url('/problummobile.png');
+    background-size: 100% 100%;
     background-position: center center;
+    background-repeat: no-repeat;
   }
 }
