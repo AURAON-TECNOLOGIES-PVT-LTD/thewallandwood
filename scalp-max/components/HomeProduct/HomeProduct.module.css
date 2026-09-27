@@ -7,13 +7,14 @@
 
 .section {
   width: 100%;
-   background-image: url('/homebgmobile.jpg');
-background-size: cover;
-background-position: center center;
-background-repeat: no-repeat;
+  background-image: url('/homebgmobile.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
   /* Use dvh to fit perfectly on any phone, accounting for browser chrome */
- min-height: calc(100dvh + 120px);
-  padding-top: 70px;          /* clear fixed header */
+  min-height: calc(100dvh + 120px);
+  padding-top: 70px;
   display: flex;
   align-items: flex-start;
 }
@@ -198,37 +199,95 @@ background-repeat: no-repeat;
   line-height: 1.35;
 }
 
-/* ── CTA ── */
+/* ── PREMIUM BUY NOW CTA ── */
 .addBtn {
+  position: relative;
   width: 100%;
+  min-height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px;
-  background: #f3f4f6;
-  border: none;
-  border-radius: 10px;
+  gap: 18px;
+  padding: 14px 22px;
+
+  background: linear-gradient(135deg, #0d1110, #171c19);
+  color: #ffffff;
+
+  border: 1px solid rgba(197, 168, 128, 0.45);
+  border-radius: 100px;
+
   font-family: var(--font-body, sans-serif);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #111;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .addBtn:hover {
-  background: #e8e9eb;
+  background: linear-gradient(135deg, #151b18, #202722);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .addBtn:active {
-  transform: scale(0.99);
+  transform: scale(0.97);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 .addBtn:disabled {
   opacity: 0.7;
   cursor: wait;
+}
+
+/* ── BUY NOW TEXT ── */
+.buyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.buyTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.buyTagline {
+  margin-top: 5px;
+  font-size: 0.48rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+}
+
+/* ── BUY NOW ARROW ── */
+.btnArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.addBtn:hover .btnArrow {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* ── Shipping ── */
@@ -251,15 +310,18 @@ background-repeat: no-repeat;
   .heroImg {
     max-height: 38vh;
   }
+
   .title {
     font-size: 1.65rem;
     margin: 8px 0 4px;
   }
+
   .benefits {
     gap: 12px 10px;
     margin: 14px 0;
     padding: 12px 0;
   }
+
   .addBtn {
     padding: 16px;
   }
@@ -270,49 +332,61 @@ background-repeat: no-repeat;
   .section {
     padding-top: 60px;
   }
+
   .heroImg {
     max-height: 28vh;
   }
+
   .dots {
     margin: 4px 0;
   }
+
   .dot {
     width: 5px;
     height: 5px;
   }
+
   .title {
     font-size: 1.3rem;
     margin: 4px 0 2px;
   }
+
   .subtitle {
     font-size: 0.8rem;
   }
+
   .desc {
     font-size: 0.72rem;
   }
+
   .priceWrap {
     margin: 6px 0 0;
   }
+
   .price {
     font-size: 1.25rem;
   }
+
   .benefits {
     gap: 6px 4px;
     margin: 8px 0;
     padding: 6px 0;
   }
+
   .benefit svg {
     width: 13px;
     height: 13px;
     min-width: 13px;
   }
+
   .benefit span {
     font-size: 0.6rem;
   }
+
   .addBtn {
     padding: 10px;
-    font-size: 0.82rem;
   }
+
   .shipping {
     margin-top: 4px;
     font-size: 0.7rem;
@@ -324,36 +398,16 @@ background-repeat: no-repeat;
   .container {
     padding: 0 12px;
   }
+
   .title {
     font-size: 1.2rem;
   }
+
   .price {
     font-size: 1.2rem;
   }
+
   .benefit span {
     font-size: 0.58rem;
   }
-}
-/* ── BUY NOW text ── */
-.buyContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.buyTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-}
-
-.buyTagline {
-  margin-top: 5px;
-  font-size: 0.52rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  opacity: 0.8;
-  white-space: nowrap;
 }
