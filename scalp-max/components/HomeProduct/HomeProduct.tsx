@@ -157,20 +157,8 @@ export default function HomeProduct() {
             <span>Reduces Dandruff<br/>& Flakes</span>
           </div>
           <div className={styles.benefit}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>
-            <span>Nourishes<br/>Scalp</span>
-          </div>
-          <div className={styles.benefit}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Strengthens<br/>Hair Roots</span>
-          </div>
-          <div className={styles.benefit}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22V10M12 14c3-1.5 5-4.5 5-7.5M12 17c-3-1.5-5-4.5-5-7.5" /></svg>
             <span>Supports Healthy<br/>Hair Growth</span>
-          </div>
-          <div className={styles.benefit}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-2.24.75-3 .1-.76.65-2.13.55-3-.1Z" /><path d="m2 16 3-8 3 8c-.87.65-2.24.75-3 .1-.76.65-2.13.55-3-.1Z" /><path d="M7 21h10" /><path d="M12 3v18" /><path d="M3 7h18" /></svg>
-            <span>Restores Scalp<br/>Balance</span>
           </div>
           <div className={styles.benefit}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 3h12M8 3v3a5 5 0 0 1-3 4.5v7.5A3 3 0 0 0 8 21h8a3 3 0 0 0 3-3v-7.5A5 5 0 0 1 16 6V3"/><path d="M8.5 13h7"/></svg>
