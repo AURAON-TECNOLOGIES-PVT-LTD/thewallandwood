@@ -29,11 +29,12 @@ export default function Header() {
       handleScroll();
       updateCartCount();
     }, 0);
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     window.addEventListener('cartUpdated', updateCartCount);
     window.addEventListener('storage', updateCartCount);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('cartUpdated', updateCartCount);
@@ -51,12 +52,17 @@ export default function Header() {
 
   return (
     <>
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} id="header">
+      <header
+        className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
+        id="header"
+      >
         <div className={styles.inner}>
           {/* Left Column: Hamburger Menu Toggle */}
           <div className={styles.leftCol}>
             <button
-              className={`${styles.hamburger} ${mobileOpen ? styles.open : ''}`}
+              className={`${styles.hamburger} ${
+                mobileOpen ? styles.open : ''
+              }`}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
@@ -76,7 +82,11 @@ export default function Header() {
                 alt="SCALP MAX"
                 width={732}
                 height={289}
-                style={{ objectFit: 'contain', height: '52px', width: 'auto' }}
+                style={{
+                  objectFit: 'contain',
+                  height: '52px',
+                  width: 'auto',
+                }}
                 priority
               />
             </Link>
@@ -84,20 +94,67 @@ export default function Header() {
 
           {/* Right Column: Cart Link */}
           <div className={styles.rightCol}>
-            <Link href="/cart" className={styles.cartIconLink} aria-label={`View Cart (${cartCount} items)`} id="header-cart-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <Link
+              href="/cart"
+              className={styles.cartIconLink}
+              aria-label={`View Cart (${cartCount} items)`}
+              id="header-cart-icon"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                aria-hidden="true"
+              >
                 <circle cx="9" cy="21" r="1" />
                 <circle cx="20" cy="21" r="1" />
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
               </svg>
-              <span className={styles.cartBadge} id="header-cart-badge">{cartCount}</span>
+
+              <span className={styles.cartBadge} id="header-cart-badge">
+                {cartCount}
+              </span>
             </Link>
+          </div>
+        </div>
+
+        {/* Scrolling Brand Statement */}
+        <div className={styles.announcementBar}>
+          <div className={styles.announcementTrack}>
+            <span>INDIA'S FIRST SCALP-FOCUSED HAIR CARE BRAND</span>
+            <span>•</span>
+            <span>SCALP FIRST. HAIR FOLLOWS.™</span>
+            <span>•</span>
+            <span>HEALTHY HAIR STARTS WITH A HEALTHY SCALP</span>
+            <span>•</span>
+            <span>SCALP MAX™</span>
+            <span>•</span>
+
+            {/* Repeated sequence for continuous scrolling */}
+            <span>INDIA'S FIRST SCALP-FOCUSED HAIR CARE BRAND</span>
+            <span>•</span>
+            <span>SCALP FIRST. HAIR FOLLOWS.™</span>
+            <span>•</span>
+            <span>HEALTHY HAIR STARTS WITH A HEALTHY SCALP</span>
+            <span>•</span>
+            <span>SCALP MAX™</span>
+            <span>•</span>
           </div>
         </div>
       </header>
 
       {/* Mobile Menu */}
-      <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ''}`} role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <div
+        className={`${styles.mobileMenu} ${
+          mobileOpen ? styles.mobileMenuOpen : ''
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+      >
         <nav>
           {navLinks.map((link) => (
             <Link
@@ -109,6 +166,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+
           <Link
             className={styles.mobileNavLink}
             href="/cart"
@@ -119,10 +177,14 @@ export default function Header() {
           </Link>
         </nav>
       </div>
+
       {mobileOpen && (
-        <div className={styles.mobileOverlay} onClick={() => setMobileOpen(false)} aria-hidden="true" />
+        <div
+          className={styles.mobileOverlay}
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
       )}
     </>
   );
 }
-
