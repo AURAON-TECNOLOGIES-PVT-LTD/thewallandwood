@@ -12,7 +12,7 @@ background-size: cover;
 background-position: center center;
 background-repeat: no-repeat;
   /* Use dvh to fit perfectly on any phone, accounting for browser chrome */
-  min-height: calc(100dvh - 70px);
+ min-height: calc(100dvh + 120px);
   padding-top: 70px;          /* clear fixed header */
   display: flex;
   align-items: flex-start;
@@ -85,7 +85,7 @@ background-repeat: no-repeat;
 .heroImg {
   display: block;
   width: 100%;
-  max-height: 30vh;
+  max-height: 33vh;
   height: auto;
   object-fit: contain;
   pointer-events: none;
