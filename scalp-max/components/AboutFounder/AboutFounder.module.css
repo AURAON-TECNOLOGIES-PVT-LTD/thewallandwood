@@ -1,46 +1,74 @@
 /* =============================================
    AboutFounder — SCALP MAX® Founder
-   Premium editorial layout
+   Premium showroom / founder section
+   Background: /public/founders.png
+   Logo: /public/finallogo.png
    ============================================= */
 
 .section {
-  padding: clamp(4rem, 8vw, 7rem) 0;
-  background: #ffffff;
   position: relative;
+  width: 100%;
+  min-height: 850px;
+
+  padding: clamp(4rem, 8vw, 7rem) 0;
+
   overflow: hidden;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(250, 247, 241, 0.18) 0%,
+      rgba(250, 247, 241, 0.06) 50%,
+      rgba(250, 247, 241, 0.12) 100%
+    ),
+    url('/founders.png');
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
-/* Very subtle background branding */
+/* Soft overlay for text readability */
 .section::before {
-  content: 'SCALP MAX';
+  content: '';
+
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-20deg);
+  inset: 0;
 
-  font-family: var(--font-display);
-  font-size: clamp(6rem, 18vw, 16rem);
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.02) 55%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
 
-  color: rgba(18, 20, 26, 0.025);
-
-  white-space: nowrap;
   pointer-events: none;
-  user-select: none;
 }
+
+/* =============================================
+   CONTAINER
+   ============================================= */
 
 .container {
   max-width: 1200px;
+
   margin: 0 auto;
+
   padding: 0 2rem;
+
   position: relative;
+
   z-index: 2;
 }
 
-/* Decorative vertical line */
+/* =============================================
+   DECORATIVE VERTICAL LINE
+   ============================================= */
+
 .verticalLine {
   position: absolute;
+
   left: 2rem;
   top: 0;
   bottom: 0;
@@ -64,7 +92,9 @@
 .inner {
   display: grid;
 
-  grid-template-columns: minmax(0, 1fr) 420px;
+  grid-template-columns:
+    minmax(0, 1fr)
+    420px;
 
   gap: 5rem;
 
@@ -79,13 +109,29 @@
 
 .content {
   position: relative;
-  z-index: 2;
+
+  z-index: 3;
+
+  max-width: 650px;
 }
 
+/* =============================================
+   SECTION LABEL
+   ============================================= */
+
 .sectionLabel {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.6rem;
+
+  margin-bottom: 1.25rem;
+
   font-family: var(--font-body);
 
   font-size: 0.68rem;
+
   font-weight: 700;
 
   letter-spacing: 0.2em;
@@ -93,13 +139,6 @@
   text-transform: uppercase;
 
   color: var(--teal);
-
-  margin-bottom: 1.25rem;
-
-  display: flex;
-  align-items: center;
-
-  gap: 0.6rem;
 }
 
 .sectionLabel::before {
@@ -108,14 +147,21 @@
   display: block;
 
   width: 24px;
+
   height: 1.5px;
 
   background: var(--teal);
 
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
+/* =============================================
+   TITLE
+   ============================================= */
+
 .title {
+  margin: 0 0 0.9rem;
+
   font-family: var(--font-display);
 
   font-size: clamp(2.2rem, 4vw, 3.5rem);
@@ -126,12 +172,25 @@
 
   letter-spacing: -0.02em;
 
-  color: var(--text-dark);
+  color: #18231e;
 
-  margin: 0 0 0.9rem;
+  text-shadow:
+    0 1px 8px rgba(255, 255, 255, 0.45);
 }
 
+/* =============================================
+   FOUNDER NAME
+   ============================================= */
+
 .founderName {
+  position: relative;
+
+  display: inline-block;
+
+  margin: 0 0 1.5rem;
+
+  padding-bottom: 0.5rem;
+
   font-family: var(--font-body);
 
   font-size: 1rem;
@@ -140,17 +199,9 @@
 
   letter-spacing: 0.04em;
 
-  color: var(--teal);
-
   text-transform: uppercase;
 
-  margin: 0 0 1.5rem;
-
-  position: relative;
-
-  display: inline-block;
-
-  padding-bottom: 0.5rem;
+  color: var(--teal);
 }
 
 .founderName::after {
@@ -159,38 +210,45 @@
   position: absolute;
 
   left: 0;
+
   bottom: 0;
 
   width: 100%;
+
   height: 1.5px;
 
   background: var(--teal);
 
-  opacity: 0.25;
+  opacity: 0.3;
 }
 
 /* =============================================
-   BODY
+   BODY TEXT
    ============================================= */
 
 .body {
+  max-width: 680px;
+
+  margin: 0 0 1.75rem;
+
   font-family: var(--font-body);
 
   font-size: 1rem;
 
+  font-weight: 400;
+
   line-height: 1.8;
 
-  color: var(--text-mid);
+  color: #46534c;
 
-  margin: 0 0 1.75rem;
-
-  max-width: 720px;
+  text-shadow:
+    0 1px 5px rgba(255, 255, 255, 0.55);
 }
 
 .body strong {
-  color: var(--text-dark);
+  color: #18231e;
 
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* =============================================
@@ -204,24 +262,29 @@
 
   border-left: 3px solid var(--teal);
 
-  background: rgba(18, 20, 26, 0.025);
-
   border-radius: 0 10px 10px 0;
 
+  background: rgba(255, 255, 255, 0.52);
+
   box-shadow:
+    0 10px 30px rgba(35, 35, 25, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .philosophyQuote {
   font-family: var(--font-display);
 
-  font-style: italic;
-
   font-size: clamp(1.2rem, 2vw, 1.5rem);
 
-  color: var(--text-dark);
+  font-style: italic;
 
   line-height: 1.4;
+
+  color: #18231e;
 }
 
 /* =============================================
@@ -235,26 +298,22 @@
 
   gap: 0.3rem;
 
+  margin-top: 0.25rem;
+
   padding: 1rem 1.5rem;
 
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(62, 72, 65, 0.15);
 
   border-radius: 10px;
 
-  background: #fafafa;
-
-  margin-top: 0.25rem;
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.ownerBadge:hover {
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.58);
 
   box-shadow:
-    0 10px 25px rgba(18, 20, 26, 0.06);
+    0 10px 25px rgba(35, 35, 25, 0.06);
+
+  backdrop-filter: blur(8px);
+
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .ownerLabel {
@@ -268,7 +327,7 @@
 
   text-transform: uppercase;
 
-  color: var(--text-muted);
+  color: #69756d;
 }
 
 .ownerName {
@@ -278,16 +337,18 @@
 
   font-weight: 600;
 
-  color: var(--text-dark);
-
   line-height: 1.4;
+
+  color: #18231e;
 }
 
 /* =============================================
-   RIGHT — SCALP MAX® LOGO
+   RIGHT — LOGO
    ============================================= */
 
 .emblem {
+  position: relative;
+
   display: flex;
 
   align-items: center;
@@ -298,39 +359,61 @@
 
   min-height: 420px;
 
-  position: relative;
+  z-index: 3;
 }
+
+/*
+  finallogo.png sits inside the circular
+  area already present in founders.png.
+*/
 
 .founderLogo {
   display: block;
 
-  width: min(420px, 90%);
+  width: 190px;
 
-  height: auto;
+  height: 190px;
 
   object-fit: contain;
 
-  /* Removes the white background of the logo image */
+  position: relative;
+
+  z-index: 5;
+
+  /*
+    Helps a white logo-image background
+    blend into the showroom.
+  */
   mix-blend-mode: multiply;
 
-  filter: contrast(1.04);
+  filter:
+    contrast(1.05)
+    saturate(1.02);
 
   transition:
-    transform 0.5s ease,
-    filter 0.5s ease;
+    transform 0.4s ease,
+    filter 0.4s ease;
 }
 
 .founderLogo:hover {
   transform: scale(1.025);
 
-  filter: contrast(1.08);
+  filter:
+    contrast(1.08)
+    saturate(1.04);
 }
 
 /* =============================================
-   RESPONSIVE — TABLET
+   TABLET
    ============================================= */
 
 @media (max-width: 900px) {
+
+  .section {
+    min-height: auto;
+
+    background-position: center center;
+  }
 
   .inner {
     grid-template-columns: 1fr;
@@ -351,7 +434,9 @@
   }
 
   .founderLogo {
-    width: min(360px, 70%);
+    width: 180px;
+
+    height: 180px;
   }
 
   .verticalLine {
@@ -360,35 +445,49 @@
 }
 
 /* =============================================
-   RESPONSIVE — MOBILE
+   MOBILE
    ============================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
   .section {
-    padding: 4rem 0;
+    padding: 4.5rem 0 4rem;
+
+    background-position: 60% center;
+  }
+
+  .section::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.28) 0%,
+        rgba(255, 255, 255, 0.05) 55%,
+        rgba(255, 255, 255, 0.2) 100%
+      );
   }
 
   .container {
-    padding: 0 1.25rem;
+    padding: 0 1rem;
   }
 
   .title {
-    font-size: 2.25rem;
+    font-size: 2.35rem;
   }
 
   .founderName {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
   }
 
   .body {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
 
     line-height: 1.7;
   }
 
   .philosophy {
     padding: 1rem 1.25rem;
+
+    background: rgba(255, 255, 255, 0.62);
   }
 
   .philosophyQuote {
@@ -399,13 +498,53 @@
     width: 100%;
 
     box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.65);
   }
 
   .emblem {
-    min-height: 240px;
+    min-height: 250px;
   }
 
   .founderLogo {
-    width: min(300px, 82%);
+    width: 155px;
+
+    height: 155px;
+  }
+}
+
+/* =============================================
+   SMALL MOBILE
+   ============================================= */
+
+@media (max-width: 360px) {
+
+  .section {
+    padding-top: 4rem;
+  }
+
+  .title {
+    font-size: 2.1rem;
+  }
+
+  .body {
+    font-size: 0.86rem;
+  }
+
+  .founderLogo {
+    width: 140px;
+
+    height: 140px;
+  }
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .founderLogo {
+    transition: none;
   }
 }
