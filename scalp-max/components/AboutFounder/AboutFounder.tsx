@@ -64,13 +64,13 @@ export default function AboutFounder() {
           </div>
 
           {/* Right — SCALP MAX logo image */}
-          <div className={styles.emblem}>
-            <img
-              src="/founders.png"
-              alt="SCALP MAX"
-              className={styles.founderLogo}
-            />
-          </div>
+         <div className={styles.emblem}>
+  <img
+    src="/finallogo.png"
+    alt="SCALP MAX"
+    className={styles.founderLogo}
+  />
+</div>
 
         </div>
       </div>
