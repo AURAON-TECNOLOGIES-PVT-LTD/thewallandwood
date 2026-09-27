@@ -1,33 +1,57 @@
-/* Header — matches Lovable reference (no announcement bar, no Shop/Best Sellers) */
+/* Header — SCALP MAX™ with scrolling brand statement */
 
-/* Announcement Bar */
+/* =========================================
+   SCALP MAX™ — Scrolling Brand Statement
+   ========================================= */
+
 .announcementBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1001;
-  background: #0d1b2a;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    #0b0b0b 0%,
+    #242424 45%,
+    #111111 55%,
+    #0b0b0b 100%
+  );
+  color: #ffffff;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px 1rem;
-  height: 36px;
-}
-
-.announcementText {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: #f5ede3;
-  margin: 0;
-  text-align: center;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.announcementTrack {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  padding-left: 100%;
+  animation: announcementScroll 24s linear infinite;
+}
+
+.announcementTrack span {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes announcementScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Header */
 .header {
   position: fixed;
   top: 0;
@@ -95,7 +119,7 @@
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.46em;
-  color: #8c7b64; /* metallic bronze/gold */
+  color: #8c7b64;
   margin-top: 2px;
   margin-right: -0.46em;
 }
@@ -319,6 +343,7 @@
   box-shadow: 0 0 0 2px #fff;
 }
 
+/* Tablet */
 @media (max-width: 900px) {
   .inner {
     padding: 0 1.5rem;
@@ -326,9 +351,24 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .inner {
     padding: 0 1rem;
     height: 68px;
+  }
+
+  .announcementBar {
+    height: 27px;
+  }
+
+  .announcementTrack {
+    gap: 20px;
+    animation-duration: 18s;
+  }
+
+  .announcementTrack span {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
   }
 }
