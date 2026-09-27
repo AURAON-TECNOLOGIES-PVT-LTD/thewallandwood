@@ -8,19 +8,12 @@
   width: 100%;
   height: 30px;
   overflow: hidden;
-  background: linear-gradient(
-    90deg,
-    #0b0b0b 0%,
-    #242424 45%,
-    #111111 55%,
-    #0b0b0b 100%
-  );
+  background: #151515;
   color: #ffffff;
   display: flex;
   align-items: center;
   white-space: nowrap;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .announcementTrack {
